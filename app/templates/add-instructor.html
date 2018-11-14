@@ -1,0 +1,36 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <h1>Add Instructor:</h1>
+        <form action="/somewhere_else" method="post" role="form" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="firstNameInput">First Name</label>
+                <input type="text" class="form-control" id="firstNameInput" name="firstNameInput" placeholder="Enter first name">
+            </div>
+            <div class="form-group">
+                <label for="lastNameInput">Last Name</label>
+                <input type="text" class="form-control" id="lastNameInput" name="lastNameInput" placeholder="Enter last name">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" name="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                <small id="emailHelp" class="form-text text-muted">We might share your email with someone else.</small>
+            </div>
+            <div class="form-group">
+                <label for="desiredLoadInput">Desired Load</label>
+                <input type="text" class="form-control" id="desiredLoadInput" name="desiredLoadInput" aria-describedby="loadHelp" placeholder="Enter desired Load">
+                <small id="loadHelp" class="form-text text-muted">The amount of load desired</small>
+            </div>
+            <input type="submit" value="Submit" class="btn btn-primary">Add Instructor</input>
+        </form>
+        <pre><code>first name (VARCHAR, NOT NULL), last name (VARCHAR, NOT NULL), email address (VARCHAR, NOT NULL, UNIQUE), id number (INT, NOT NULL), desired load (DECIMAL, Default value 0, NOT NULL)</pre></code>
+    </div>
+</body>
+
+</html>
