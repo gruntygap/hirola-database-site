@@ -1,0 +1,30 @@
+<form action="/somewhere_else" method="post" role="form" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="courseIDLookup">Course ID</label>
+        <select class="form-control" id="courseIDLookup" name="courseID">
+            <option>1</option>
+            <option>2</option>
+            {# Use jinja and a passed in dictionary / array of classes #}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="section">Section Number</label>
+        <input type="number" class="form-control" min="1" step="1" id="section" name="section"
+               placeholder="1">
+    </div>
+    <div class="form-group">
+        <label for="semester">Semester</label>
+        <select class="form-control" id="semester" name="semester">
+            <option>Fall</option>
+            <option>Interim</option>
+            <option>Spring</option>
+            <option>Summer</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="year">Year</label>
+        <input type="number" class="form-control" min="1990" step="1" id="year" name="year"
+               placeholder="2000">
+    </div>
+    <input type="submit" value="Add Section" class="btn btn-primary"/>
+</form>
