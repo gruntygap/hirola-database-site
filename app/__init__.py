@@ -4,27 +4,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def landing_page():
-    return render_template('index.html')
-
-@app.route('/add-instructor')
-def add_instructor():
-    return render_template('add-instructor.html')
-
-@app.route('/add-course')
-def add_course():
-    return render_template('add-course.html')
-
-@app.route('/add-section')
-def add_section():
-    return render_template('add-section-course.html')
-
-@app.route('/assign-course-instructor')
-def assign_course_instructor():
-    return render_template('assign-course-instructor.html')
-
-@app.route('/assign-course-mod')
-def assign_course_mod():
-    return render_template('assign-course-mod.html')
+	# pass in the classes within database for add-section-course
+	# place that where steve is
+    return render_template('index.html', steve="steve is a good boi")
 
 @app.route("/somewhere_else", methods=['POST'])
 def receive_post():

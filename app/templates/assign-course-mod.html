@@ -1,14 +1,41 @@
-<html>
-
-<head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-</head>
-
-<body>
-    <div class="container-fluid">
-        <h1>Assign Courses to Mod:</h1>
+<form action="/somewhere_else" method="post" role="form" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="courseIDLookup">Course ID</label>
+        <select class="form-control" id="courseIDLookup" name="courseID">
+            {# Use jinja and a passed in dictionary / array of classes #}
+            <option>1</option>
+            <option>2</option>
+        </select>
     </div>
-</body>
-
-</html>
+    <div class="form-group">
+        <label for="section">Section ID</label>
+        <input type="number" class="form-control" min="1" step="1" id="section" name="section"
+               placeholder="1">
+    </div>
+    <div class="form-group">
+        <label for="semester">Semester</label>
+        <select class="form-control" id="semester" name="semester">
+            <option>Fall</option>
+            <option>Interim</option>
+            <option>Spring</option>
+            <option>Summer</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="year">Year</label>
+        <input type="number" class="form-control" min="1990" step="1" id="year" name="year"
+               placeholder="2000">
+    </div>
+    <div class="form-group">
+        <label for="modToPair">Mod</label>
+        <select class="form-control" id="modToPair" name="modToPair">
+            {# Use jinja and a passed in dictionary / array of classes #}
+            <option value="instructor_id">Online</option>
+            <option value="instructor_id">A</option>
+            <option value="instructor_id">AA</option>
+            <option value="instructor_id">B</option>
+            <option value="instructor_id">BB</option>
+        </select>
+    </div>
+    <input type="submit" value="Assign Course to Mod" class="btn btn-primary"/>
+</form>
