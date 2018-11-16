@@ -103,20 +103,4 @@
         <button class="btn btn-primary">Final Phase</button>
     </div>
 </div>
-<button type="button" class="btn btn-primary" id="pause" onclick="playOrPause()">Stop Animation</button>
-<script type="text/javascript">
-document.getElementsByClassName("navbar")[0].style.animationPlayState = "running";
-
-function playOrPause() {
-    var bodyE = document.getElementsByClassName("navbar")[0];
-    var button = document.getElementById("pause");
-    if (bodyE.style.animationPlayState == "running") {
-        bodyE.style.animationPlayState = "paused";
-        button.innerHTML = "Start Animation";
-    } else {
-        bodyE.style.animationPlayState = "running";
-        button.innerHTML = "Stop Animation"
-    }
-}
-</script>
 {% endblock %}
