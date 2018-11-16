@@ -7,7 +7,24 @@ app = Flask(__name__)
 def landing_page():
 	# pass in the classes within database for add-section-course
 	# place that where steve is
-    return render_template('index.html', steve="steve is a good boi")
+    return render_template('dashboard.html', steve="steve is a good boi")
+
+
+@app.route('/dashboard')
+def dash():
+	# pass in the classes within database for add-section-course
+	# place that where steve is
+    return landing_page()
+
+
+@app.route('/functions')
+def function_page():
+    return render_template('input_functions.html')
+
+
+@app.route('/time-warps')
+def time_warps():
+    return render_template('time_warps.html')
 
 
 @app.route("/somewhere_else", methods=['POST'])
