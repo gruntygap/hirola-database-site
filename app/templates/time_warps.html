@@ -1,106 +1,136 @@
 {% extends "header.html" %}
 {% block head %}
-<style type="text/css">
-.navbar {
-    background-color: red;
-    animation: example 10s linear;
-    animation-iteration-count: infinite;
-}
+    <style type="text/css">
+        .navbar {
+            background-color: red;
+            animation: example 10s linear;
+            animation-iteration-count: infinite;
+        }
 
-@keyframes example {
+        @keyframes example {
 
-    100%,
-    0% {
-        background-color: rgb(255, 0, 0);
-    }
+            100%,
+            0% {
+                background-color: rgb(255, 0, 0);
+            }
 
-    8% {
-        background-color: rgb(255, 127, 0);
-    }
+            8% {
+                background-color: rgb(255, 127, 0);
+            }
 
-    16% {
-        background-color: rgb(255, 255, 0);
-    }
+            16% {
+                background-color: rgb(255, 255, 0);
+            }
 
-    25% {
-        background-color: rgb(127, 255, 0);
-    }
+            25% {
+                background-color: rgb(127, 255, 0);
+            }
 
-    33% {
-        background-color: rgb(0, 255, 0);
-    }
+            33% {
+                background-color: rgb(0, 255, 0);
+            }
 
-    41% {
-        background-color: rgb(0, 255, 127);
-    }
+            41% {
+                background-color: rgb(0, 255, 127);
+            }
 
-    50% {
-        background-color: rgb(0, 255, 255);
-    }
+            50% {
+                background-color: rgb(0, 255, 255);
+            }
 
-    58% {
-        background-color: rgb(0, 127, 255);
-    }
+            58% {
+                background-color: rgb(0, 127, 255);
+            }
 
-    66% {
-        background-color: rgb(0, 0, 255);
-    }
+            66% {
+                background-color: rgb(0, 0, 255);
+            }
 
-    75% {
-        background-color: rgb(127, 0, 255);
-    }
+            75% {
+                background-color: rgb(127, 0, 255);
+            }
 
-    83% {
-        background-color: rgb(255, 0, 255);
-    }
+            83% {
+                background-color: rgb(255, 0, 255);
+            }
 
-    91% {
-        background-color: rgb(255, 0, 127);
-    }
-}
+            91% {
+                background-color: rgb(255, 0, 127);
+            }
+        }
 
-.collapse-title {
-    font-size: xx-large;
-}
-</style>
+        .collapse-title {
+            font-size: xx-large;
+        }
+    </style>
 {% endblock %}
 {% block content %}
-<h1 id="titleOfPage">Time-warps</h1>
-<h3>Execute Phases:</h3>
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">Phase 1</h5>
-        <p class="card-text">should produce a DB with empty tables</p>
-        <button class="btn btn-primary">Phase 1</button>
+    <div class="modal" id="exampleModal" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmation:</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>ARE YOU SURE ABOUT THAT??</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Nuns on ripple</button>
+                    <button type="button" class="btn btn-primary" id="confirm">Yank train</button>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">Phase 2</h5>
-        <p class="card-text">should produce a DB with at least 10 instructors and at least 30 courses, but no course offerings for the current year</p>
-        <button class="btn btn-primary">Phase 2</button>
+    <h1 id="titleOfPage">Time-warps</h1>
+    <h3>Execute Phases:</h3>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Phase 1</h5>
+            <p class="card-text">should produce a DB with empty tables</p>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="passToModal(this)" data-id="1">Phase 1</button>
+        </div>
     </div>
-</div>
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">Phase 3</h5>
-        <p class="card-text">should produce a DB with at least 10 instructors, at least 30 courses, and at least 70 course offerings</p>
-        <button class="btn btn-primary">Phase 3</button>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Phase 2</h5>
+            <p class="card-text">should produce a DB with at least 10 instructors and at least 30 courses, but no course
+                offerings for the current year</p>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="passToModal(this)" data-id="2">Phase 2</button>
+        </div>
     </div>
-</div>
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">Phase 4</h5>
-        <p class="card-text">should produce a DB with at least 10 instructors, at least 30 courses, at least 70 course offerings, and all course offerings should be assigned to an instructor</p>
-        <button class="btn btn-primary">Phase 4</button>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Phase 3</h5>
+            <p class="card-text">should produce a DB with at least 10 instructors, at least 30 courses, and at least 70
+                course offerings</p>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="passToModal(this)" data-id="3">Phase 3</button>
+        </div>
     </div>
-</div>
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">Final Phase</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Order 66</h6>
-        <p class="card-text">should produce a DB that is completely populated for one year (10+ instructors, 30+ courses, 70+ course offerings, all courses assigned to instructors and times)</p>
-        <button class="btn btn-primary">Final Phase</button>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Phase 4</h5>
+            <p class="card-text">should produce a DB with at least 10 instructors, at least 30 courses, at least 70
+                course offerings, and all course offerings should be assigned to an instructor</p>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="passToModal(this)" data-id="4">Phase 4</button>
+        </div>
     </div>
-</div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Final Phase</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Order 66</h6>
+            <p class="card-text">should produce a DB that is completely populated for one year (10+ instructors, 30+
+                courses, 70+ course offerings, all courses assigned to instructors and times)</p>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="passToModal(this)" data-id="5">Final Phase</button>
+        </div>
+    </div>
+    <script>
+    function passToModal(element) {
+        console.log(element.getAttribute('data-id'));
+        const confirmB = document.getElementById("confirm");
+        confirmB.innerHTML = "Yank train, Phase" + element.getAttribute('data-id');
+    }
+    </script>
 {% endblock %}
