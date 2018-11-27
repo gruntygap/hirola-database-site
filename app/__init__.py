@@ -9,6 +9,7 @@ app = Flask(__name__)
 def landing_page():
 	# pass in the classes within database for add-section-course
 	# place that where steve is
+	database.run_mass_query()
 	return render_template('dashboard.html', steve="steve is a good boi")
 
 
