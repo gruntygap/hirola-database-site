@@ -1,0 +1,59 @@
+Triggers
+
+Check_cluster_insert
+DELIMITER //
+CREATE TRIGGER check_cluster_insert
+BEFORE INSERT on teaches
+FOR EACH ROW
+BEGIN
+IF EXISTS (SELECT * FROM teaches WHERE id=NEW.id AND mod_slot=NEW.mod_slot AND (SELECT clutser_id FROM likely_course_conflicts WHERE course_id=NEW.course_id)) THEN
+INSERT INTO teaches (id, course_id, sec_id, semester, year, mod_slot) VALUES (NEW.id, NEW.course_id, NEW.sec_id, NEW.semester, NEW.year, NEW.mod_slot);
+SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='The course is scheduled to overlap with other course in the same cluster';
+ELSE
+INSERT INTO teaches (id, course_id, sec_id, semester, year, mod_slot) VALUES (NEW.id, NEW.course_id, NEW.sec_id, NEW.semester, NEW.year, NEW.mod_slot);
+END IF;
+END
+// 
+DELIMITER ;
+
+Check_cluster_update
+DELIMITER //
+CREATE TRIGGER check_cluster update
+BEFORE UPDATE on teaches
+FOR EACH ROW
+BEGIN
+IF EXISTS (SELECT * FROM teaches WHERE id=NEW.id AND mod_slot=NEW.mod_slot AND (SELECT clutser_id FROM likely_course_conflicts WHERE course_id=NEW.course_id)) THEN
+INSERT INTO teaches (id, course_id, sec_id, semester, year, mod_slot) VALUES (NEW.id, NEW.course_id, NEW.sec_id, NEW.semester, NEW.year, NEW.mod_slot);
+SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='The course is scheduled to overlap with other course in the same cluster';
+ELSE
+INSERT INTO teaches (id, course_id, sec_id, semester, year, mod_slot) VALUES (NEW.id, NEW.course_id, NEW.sec_id, NEW.semester, NEW.year, NEW.mod_slot);
+END IF;
+END
+// 
+DELIMTER ;
+
+Check_course_time_insert
+DELIMITER //
+CREATE TRIGGER check_course_time_insert
+BEFORE INSERT on teaches
+FOR EACH ROW
+BEGIN
+IF EXISTS (SELECT count(id) FROM teaches WHERE id = NEW.id AND course_id = NEW.course_id AND sec_id = NEW.sec_id AND semester = NEW.semester AND year = NEW.year) THEN
+SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='This professor is already scheduled for this mod';
+END IF;
+END
+//
+DELIMITER ;
+
+Check_course_time_update
+DELIMITER //
+CREATE TRIGGER check_course_time_update
+BEFORE UPDATE on teaches
+FOR EACH ROW
+BEGIN
+IF EXISTS (SELECT count(id) FROM teaches WHERE id = NEW.id AND course_id = NEW.course_id AND sec_id = NEW.sec_id AND semester = NEW.semester AND year = NEW.year) THEN
+SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='This professor is already scheduled for this mod';
+END IF;
+END
+//
+DELIMITER ;
