@@ -18,7 +18,7 @@ DELIMITER ;
 
 Check_cluster_update
 DELIMITER //
-CREATE TRIGGER check_cluster update
+CREATE TRIGGER check_cluster_update
 BEFORE UPDATE on teaches
 FOR EACH ROW
 BEGIN
