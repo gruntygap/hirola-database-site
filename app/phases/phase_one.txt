@@ -1,6 +1,3 @@
-Triggers
-
-Check_cluster_insert
 DELIMITER //
 CREATE TRIGGER check_cluster_insert
 BEFORE INSERT on teaches
@@ -16,7 +13,6 @@ END
 // 
 DELIMITER ;
 
-Check_cluster_update
 DELIMITER //
 CREATE TRIGGER check_cluster_update
 BEFORE UPDATE on teaches
@@ -32,7 +28,6 @@ END
 // 
 DELIMTER ;
 
-Check_course_time_insert
 DELIMITER //
 CREATE TRIGGER check_course_time_insert
 BEFORE INSERT on teaches
@@ -45,7 +40,6 @@ END
 //
 DELIMITER ;
 
-Check_course_time_update
 DELIMITER //
 CREATE TRIGGER check_course_time_update
 BEFORE UPDATE on teaches
