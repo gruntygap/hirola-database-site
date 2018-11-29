@@ -1,5 +1,43 @@
 {% extends "header.html" %}
 {% block content %}
 <h1 id="titleOfPage">Dashboard:</h1>
-<p>No Views Available</p>
+<table class="table">
+<thead>
+    <tr>
+      <th>Course ID</th>
+      <th>Department</th>
+        <th>Credits</th>
+        <th>Course Title</th>
+    </tr>
+</thead>
+<tbody>
+    {% for each in courses %}
+        <tr>
+            {% for item in each %}
+                <td>{{ item }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</tbody>
+</table>
+    <table class="table">
+<thead>
+    <tr>
+      <th>First N</th>
+      <th>Last N</th>
+        <th>Email</th>
+        <th>ID</th>
+        <th>Desired Load</th>
+    </tr>
+</thead>
+<tbody>
+    {% for each in instructors %}
+        <tr>
+            {% for item in each %}
+                <td>{{ item }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</tbody>
+</table>
 {% endblock %}

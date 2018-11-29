@@ -6,9 +6,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def landing_page():
-	# pass in the classes within database for add-section-course
-	# place that where steve is
-	return render_template('dashboard.html', steve="steve is a good boi")
+	courses = database.get_course_table()
+	instructors = database.get_instructor_table()
+	return render_template('dashboard.html', courses=courses, instructors=instructors)
 
 
 @app.route('/functions')

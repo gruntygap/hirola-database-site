@@ -14,6 +14,26 @@ def run_query():
 	pass
 
 
+def get_course_table():
+	cnx = connect_to_db()
+	cursor = cnx.cursor()
+	cursor.execute("select * from course")
+	result_set = cursor.fetchall()
+	cursor.close()
+	cnx.close()
+	return result_set
+
+
+def get_instructor_table():
+	cnx = connect_to_db()
+	cursor = cnx.cursor()
+	cursor.execute("select * from instructor")
+	result_set = cursor.fetchall()
+	cursor.close()
+	cnx.close()
+	return result_set
+
+
 def run_phase(num):
 	path = ""
 	if num is 1:
