@@ -42,10 +42,13 @@ def run_phase(num):
 		run_phase(1)
 		path = "app/phases/phase_2.txt"
 	elif num is 3:
+		run_phase(2)
 		path = "app/phases/phase_3.txt"
 	elif num is 4:
+		run_phase(3)
 		path = "app/phases/phase_4.txt"
 	elif num is 5:
+		run_phase(4)
 		path = "app/phases/phase_5.txt"
 	cnx = connect_to_db()
 	cursor = cnx.cursor()
