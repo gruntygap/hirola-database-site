@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request
 import app.database as database
-import mysql.connector
 
 app = Flask(__name__)
 
@@ -9,7 +8,6 @@ app = Flask(__name__)
 def landing_page():
 	# pass in the classes within database for add-section-course
 	# place that where steve is
-	database.run_mass_query()
 	return render_template('dashboard.html', steve="steve is a good boi")
 
 
@@ -35,3 +33,10 @@ def receive_post():
 
 def make_query(query):
 	pass
+
+
+@app.route("/run_phase", methods=['POST'])
+def execute_phase():
+	database.run_phase(int(request.values["id"]))
+	return "200 OK"
+

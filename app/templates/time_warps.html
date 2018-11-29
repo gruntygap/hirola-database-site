@@ -128,9 +128,27 @@
     </div>
     <script>
     function passToModal(element) {
+        // To remove the click handler, if they click on multiple phases, otherwise they run `n` times
+        $("#confirm").unbind("click");
         console.log(element.getAttribute('data-id'));
         const confirmB = document.getElementById("confirm");
-        confirmB.innerHTML = "Yank train, Phase" + element.getAttribute('data-id');
+        confirmB.innerHTML = "Yank train, Phase " + element.getAttribute('data-id');
+        $("#confirm").click(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "/run_phase",
+                data: {
+                    id: element.getAttribute('data-id'),
+                },
+                success: function(result) {
+                    alert('ok');
+                },
+                error: function(result) {
+                    alert('error');
+                }
+            });
+        });
     }
     </script>
 {% endblock %}

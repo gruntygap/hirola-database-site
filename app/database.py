@@ -14,25 +14,32 @@ def run_query():
 	pass
 
 
-def start_phase(num):
-	pass
-
-
-def run_mass_query():
+def run_phase(num):
+	path = ""
+	if num is 1:
+		path = "app/phases/phase_1.txt"
+	elif num is 2:
+		run_phase(1)
+		path = "app/phases/phase_2.txt"
+	elif num is 3:
+		path = "app/phases/phase_3.txt"
+	elif num is 4:
+		path = "app/phases/phase_4.txt"
+	elif num is 5:
+		path = "app/phases/phase_5.txt"
 	cnx = connect_to_db()
 	cursor = cnx.cursor()
-	file = open("app/phases/test.txt", 'r')
+	file = open(path, 'r')
 
 	for line in file:
 		try:
 			cursor.execute("{}".format(line))
-			cnx.commit()
 		except:
 			print("Cannot do that?")
+	cnx.commit()
 	cursor.close()
 	cnx.close()
 	file.close()
-	pass
 
 
 def test_query():

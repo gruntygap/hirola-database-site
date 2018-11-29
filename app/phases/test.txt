@@ -1,4 +1,0 @@
-INSERT into course values ('COS-123', 'Computer Science', 3, 'How to be gay with the computers');
-INSERT into course values ('COS-234', 'Computer Science', 3, 'How to be gay computers');
-INSERT into course values ('COS-345', 'Computer Science', 3, 'How to be gay');
-INSERT into course values ('COS-456', 'Computer Science', 3, 'Gay computers');
