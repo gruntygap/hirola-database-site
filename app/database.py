@@ -57,9 +57,9 @@ def run_phase(num):
 	for line in file:
 		try:
 			cursor.execute("{}".format(line))
+			cnx.commit()
 		except:
 			print("Cannot do that?")
-	cnx.commit()
 	cursor.close()
 	cnx.close()
 	file.close()
