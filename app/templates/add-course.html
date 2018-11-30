@@ -1,4 +1,4 @@
-<form action="/somewhere_else" method="post" role="form" enctype="multipart/form-data">
+<form id="createCourse" action="" enctype="multipart/form-data">
     <div class="form-group">
         <label for="courseID">Course ID</label>
         <input type="text" class="form-control" id="courseID" name="courseID" aria-describedby="courseIdHelp"
@@ -23,3 +23,20 @@
     </div>
     <input type="submit" value="Add Course" class="btn btn-primary" />
 </form>
+<script>
+    $("#createCourse").submit(function() {
+        $.ajax({
+            url:'/receive-course',
+            type:'post',
+            data: $('#createCourse').serialize(),
+            success:function(){
+                alert("worked");
+            }
+        });
+        $('#courseID').val('');
+        $('#department').val('');
+        $('#credits').val('');
+        $('#title').val('');
+        return false;
+    });
+</script>

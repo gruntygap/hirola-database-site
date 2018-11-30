@@ -21,14 +21,17 @@ def time_warps():
 	return render_template('time_warps.html')
 
 
-@app.route("/somewhere_else", methods=['POST'])
-def receive_post():
-	receive = request.form
-	for key, value in receive.items():
-		print(key)
-		print(value)
-	database.test_query()
-	return render_template('show_data_sent.html', recieve=receive)
+@app.route("/receive-course", methods=['POST'])
+def receive_course():
+	receive = request.values
+	return database.add_course(receive['courseID'], receive['department'], receive['credits'], receive['title'])
+
+
+@app.route("/receive-instructor", methods=['POST'])
+def receive_instructor():
+	receive = request.values
+	return database.add_instructor(receive['firstNameInput'], receive['lastNameInput'],
+		receive['exampleInputEmail1'], receive['id'], receive['desiredLoadInput'])
 
 
 def make_query(query):
