@@ -146,8 +146,8 @@ def run_phase(num):
 		try:
 			cursor.execute("{}".format(line))
 			cnx.commit()
-		except:
-			print("Cannot do that?")
+		except mysql.connector.Error as err:
+			print("Something went wrong: {}".format(err))
 	cursor.close()
 	cnx.close()
 	file.close()
