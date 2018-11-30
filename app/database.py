@@ -14,6 +14,32 @@ def run_query():
 	pass
 
 
+def add_course(course_id, department, num_credits, title):
+	cnx = connect_to_db()
+	cursor = cnx.cursor()
+	try:
+		cursor.execute("INSERT into course values ('{}', '{}', {}, '{}');".format(course_id, department, num_credits, title))
+	except mysql.connector.Error as err:
+		return "Something went wrong: {}".format(err)
+	cnx.commit()
+	cursor.close()
+	cnx.close()
+	return "Query Completed Successfully"
+
+
+def add_instructor(first, last, email, id, load):
+	cnx = connect_to_db()
+	cursor = cnx.cursor()
+	try:
+		cursor.execute("INSERT into instructor values ('{}', '{}', '{}', {}, {});".format(first, last, email, id, load))
+	except mysql.connector.Error as err:
+		return "Something went wrong: {}".format(err)
+	cnx.commit()
+	cursor.close()
+	cnx.close()
+	return "Query Completed Successfully"
+
+
 def get_course_table():
 	cnx = connect_to_db()
 	cursor = cnx.cursor()

@@ -1,4 +1,4 @@
-<form action="/somewhere_else" method="post" role="form" enctype="multipart/form-data">
+<form id="createInstructor" action="" enctype="multipart/form-data">
     <div class="form-group">
         <label for="firstNameInput">First Name</label>
         <input type="text" class="form-control" id="firstNameInput" name="firstNameInput"
@@ -16,6 +16,12 @@
         <small id="emailHelp" class="form-text text-muted">We might share your email with someone else.</small>
     </div>
     <div class="form-group">
+        <label for="id">ID</label>
+        <input type="text" class="form-control" id="id" name="id"
+               aria-describedby="idHelp" placeholder="Enter ID of Instructor">
+        <small id="idHelp" class="form-text text-muted">Must be greater than 0</small>
+    </div>
+    <div class="form-group">
         <label for="desiredLoadInput">Desired Load</label>
         <input type="text" class="form-control" id="desiredLoadInput" name="desiredLoadInput"
                aria-describedby="loadHelp" placeholder="Enter desired Load">
@@ -23,3 +29,24 @@
     </div>
     <input type="submit" value="Add Instructor" class="btn btn-primary"/>
 </form>
+<script>
+    $("#createInstructor").submit(function() {
+        $.ajax({
+            url:'/receive-instructor',
+            type:'post',
+            data: $('#createInstructor').serialize(),
+            success: function(result) {
+                alert(result);
+            },
+            error: function(result) {
+                alert(result);
+            }
+        });
+        $('#firstNameInput').val('');
+        $('#lastNameInput').val('');
+        $('#exampleInputEmail1').val('');
+        $('#id').val('');
+        $('#desiredLoadInput').val('');
+        return false;
+    });
+</script>
