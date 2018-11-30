@@ -13,7 +13,8 @@ def landing_page():
 
 @app.route('/functions')
 def function_page():
-	return render_template('input_functions.html')
+	course_ids = database.get_course_ids()
+	return render_template('input_functions.html', course_ids=course_ids)
 
 
 @app.route('/time-warps')
@@ -32,6 +33,13 @@ def receive_instructor():
 	receive = request.values
 	return database.add_instructor(receive['firstNameInput'], receive['lastNameInput'],
 		receive['exampleInputEmail1'], receive['id'], receive['desiredLoadInput'])
+
+
+@app.route("/receive-section", methods=['POST'])
+def receive_section():
+	receive = request.values
+	return database.add_section(receive['courseID'], receive['section'],
+		receive['semester'], receive['year'])
 
 
 def make_query(query):
