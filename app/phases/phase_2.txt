@@ -1,5 +1,1 @@
-INSERT into course values ('COS-123', 'Computer Science', 3, 'How to use a computer');
-INSERT into course values ('COS-234', 'Computer Science', 3, 'How to make computers');
-INSERT into course values ('COS-345', 'Computer Science', 3, 'How to identify as a computer');
-INSERT into course values ('COS-456', 'Computer Science', 3, 'How to be a computer');
-INSERT into instructor values ('Nathan', 'Gossett', 'nasgos@lehteb.edu', 1, '69');
+insert into instructor values ("Elana", "Green", "E.green@bethel.edu", 32548954, 23.5), ("Brennan", "McMillan", "B.mcmillan@bethel.edu", 32548957, 20.1), ("Jennifer", "Wiley", "J.wiley@bethel.edu", 85415900, 23.8), ("Zachary", "Ellis", "Z.ellis@bethel.edu", 13542854, 26.7), ("Ethan", "Bonner", "E.bonner@bethel.edu", 23165754, 17), ("Julien", "Terry", "J.terry@bethel.edu", 21684558, 30.6), ("Don", "Field", "D.field@bethel.edu", 12345678, 22.3), ("Martin", "Peck", "M.peck@bethel.edu", 84548520, 27.2), ("Margaret", "Rose", "M.rose@bethel.edu", 55686548, 13.6), ("Nicholas", "Mann", "N.mann@bethel.edu", 56892146, 34.0);
