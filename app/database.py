@@ -40,10 +40,33 @@ def add_instructor(first, last, email, id, load):
 	return "Query Completed Successfully"
 
 
+def add_section(course_id, section, semester, year):
+	cnx = connect_to_db()
+	cursor = cnx.cursor()
+	try:
+		cursor.execute("INSERT into section values ('{}', {}, '{}', {});".format(course_id, section, semester, year))
+	except mysql.connector.Error as err:
+		return "Something went wrong: {}".format(err)
+	cnx.commit()
+	cursor.close()
+	cnx.close()
+	return "Query Completed Successfully"
+
+
 def get_course_table():
 	cnx = connect_to_db()
 	cursor = cnx.cursor()
-	cursor.execute("select * from course")
+	cursor.execute("select * from course;")
+	result_set = cursor.fetchall()
+	cursor.close()
+	cnx.close()
+	return result_set
+
+
+def get_course_ids():
+	cnx = connect_to_db()
+	cursor = cnx.cursor()
+	cursor.execute("select course_id from course;")
 	result_set = cursor.fetchall()
 	cursor.close()
 	cnx.close()
@@ -53,7 +76,7 @@ def get_course_table():
 def get_instructor_table():
 	cnx = connect_to_db()
 	cursor = cnx.cursor()
-	cursor.execute("select * from instructor")
+	cursor.execute("select * from instructor;")
 	result_set = cursor.fetchall()
 	cursor.close()
 	cnx.close()
