@@ -8,6 +8,7 @@
         <ul>
         <li><a href="#courses">Courses</a></li>
         <li><a href="#instructors">Instructors</a></li>
+            <li><a href="#teaches">Teaches</a></li>
     </ul>
     </div>
 </div>
@@ -57,4 +58,28 @@
 </tbody>
 </table>
 <a class="btn btn-primary" href="/functions">Add Instructor</a>
+    <hr>
+<h3 id="teaches">Teaches</h3>
+<table class="table">
+<thead class="thead-dark">
+    <tr>
+      <th>Instructor ID</th>
+      <th>Course ID</th>
+        <th>Section ID</th>
+        <th>Semester</th>
+        <th>Year</th>
+        <th>Mod</th>
+    </tr>
+</thead>
+<tbody>
+    {% for each in teaches %}
+        <tr>
+            {% for item in each %}
+                <td>{{ item }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</tbody>
+</table>
+<a class="btn btn-primary" href="/functions">Associate Course with Instructor</a>
 {% endblock %}
