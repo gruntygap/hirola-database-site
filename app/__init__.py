@@ -53,6 +53,5 @@ def recieve_teaches():
 
 @app.route("/run_phase", methods=['POST'])
 def execute_phase():
-	database.run_phase(int(request.values["id"]))
-	return "200 OK"
+	return database.run_phase(int(request.values["id"]))
 
