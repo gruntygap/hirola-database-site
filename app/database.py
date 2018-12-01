@@ -53,6 +53,22 @@ def add_section(course_id, section, semester, year):
 	return "Query Completed Successfully"
 
 
+def add_teaches(instructor_id, course_id, section, semester, year, mod):
+	cnx = connect_to_db()
+	cursor = cnx.cursor()
+	try:
+		cursor.execute("INSERT into teaches values({}, '{}', {}, '{}', {}, '{}');".format(instructor_id, course_id, section, semester, year, mod))
+	except mysql.connector.Error as err:
+		return "Something went wrong: {}".format(err)
+	cnx.commit()
+	cursor.close()
+	cnx.close()
+	return "Query Completed Successfully"
+
+
+# Lots of repeated code, consider compressing
+
+
 def get_course_table():
 	cnx = connect_to_db()
 	cursor = cnx.cursor()
@@ -73,10 +89,33 @@ def get_course_ids():
 	return result_set
 
 
-def get_instructor_table():
+def get_instructor_table(string):
+	execute = "select * from instructor;"
+	if string != 'all':
+		execute = 'select first_name, last_name, id from instructor;'
 	cnx = connect_to_db()
 	cursor = cnx.cursor()
-	cursor.execute("select * from instructor;")
+	cursor.execute(execute)
+	result_set = cursor.fetchall()
+	cursor.close()
+	cnx.close()
+	return result_set
+
+
+def get_mods():
+	cnx = connect_to_db()
+	cursor = cnx.cursor()
+	cursor.execute("select mod_slot from timeslot;")
+	result_set = cursor.fetchall()
+	cursor.close()
+	cnx.close()
+	return result_set
+
+
+def get_teaches_table():
+	cnx = connect_to_db()
+	cursor = cnx.cursor()
+	cursor.execute("select * from teaches;")
 	result_set = cursor.fetchall()
 	cursor.close()
 	cnx.close()

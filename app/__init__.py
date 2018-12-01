@@ -7,14 +7,17 @@ app = Flask(__name__)
 @app.route('/')
 def landing_page():
 	courses = database.get_course_table()
-	instructors = database.get_instructor_table()
-	return render_template('dashboard.html', courses=courses, instructors=instructors)
+	instructors = database.get_instructor_table('all')
+	teaches = database.get_teaches_table()
+	return render_template('dashboard.html', courses=courses, instructors=instructors, teaches=teaches)
 
 
 @app.route('/functions')
 def function_page():
 	course_ids = database.get_course_ids()
-	return render_template('input_functions.html', course_ids=course_ids)
+	mods = database.get_mods()
+	instructors = database.get_instructor_table('part')
+	return render_template('input_functions.html', course_ids=course_ids, mods=mods, instructors=instructors)
 
 
 @app.route('/time-warps')
@@ -42,8 +45,10 @@ def receive_section():
 		receive['semester'], receive['year'])
 
 
-def make_query(query):
-	pass
+@app.route("/receive-teaches", methods=['POST'])
+def recieve_teaches():
+	receive = request.values
+	return database.add_teaches(receive['instructorToPair'], receive['courseID'], receive['section'], receive['semester'], receive['year'], receive['modToPair'])
 
 
 @app.route("/run_phase", methods=['POST'])
