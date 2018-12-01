@@ -146,11 +146,12 @@ def run_phase(num):
 		try:
 			cursor.execute("{}".format(line))
 			cnx.commit()
-		except:
-			print("Cannot do that?")
+		except mysql.connector.Error as err:
+			return "Something went wrong: {}".format(err)
 	cursor.close()
 	cnx.close()
 	file.close()
+	return "Queries Completed Successfully"
 
 
 def test_query():
