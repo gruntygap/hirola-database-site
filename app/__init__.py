@@ -9,7 +9,8 @@ def landing_page():
 	courses = database.get_course_table()
 	instructors = database.get_instructor_table('all')
 	teaches = database.get_teaches_table()
-	return render_template('dashboard.html', courses=courses, instructors=instructors, teaches=teaches)
+	sections = database.get_section_table()
+	return render_template('dashboard.html', courses=courses, instructors=instructors, teaches=teaches, sections=sections)
 
 
 @app.route('/functions')

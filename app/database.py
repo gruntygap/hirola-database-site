@@ -10,10 +10,6 @@ def connect_to_db():
 	return connection
 
 
-def run_query():
-	pass
-
-
 def add_course(course_id, department, num_credits, title):
 	cnx = connect_to_db()
 	cursor = cnx.cursor()
@@ -116,6 +112,16 @@ def get_teaches_table():
 	cnx = connect_to_db()
 	cursor = cnx.cursor()
 	cursor.execute("select * from teaches;")
+	result_set = cursor.fetchall()
+	cursor.close()
+	cnx.close()
+	return result_set
+
+
+def get_section_table():
+	cnx = connect_to_db()
+	cursor = cnx.cursor()
+	cursor.execute("select * from section;")
 	result_set = cursor.fetchall()
 	cursor.close()
 	cnx.close()
