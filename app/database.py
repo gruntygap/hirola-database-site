@@ -4,7 +4,8 @@ import mysql.connector
 
 def connect_to_db():
 	connection = mysql.connector.connect(user=config.DATABASE_USER, password=config.DATABASE_PASSWORD,
-										 host=config.DATABASE_ADDRESS, database=config.DATABASE_NAME)
+										 host=config.DATABASE_ADDRESS, database=config.DATABASE_NAME,
+										 port=config.DATABASE_PORT)
 	return connection
 
 
