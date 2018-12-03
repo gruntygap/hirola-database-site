@@ -9,7 +9,8 @@ def landing_page():
 	courses = database.get_course_table()
 	instructors = database.get_instructor_table('all')
 	teaches = database.get_teaches_table()
-	return render_template('dashboard.html', courses=courses, instructors=instructors, teaches=teaches)
+	sections = database.get_section_table()
+	return render_template('dashboard.html', courses=courses, instructors=instructors, teaches=teaches, sections=sections)
 
 
 @app.route('/functions')
@@ -48,7 +49,13 @@ def receive_section():
 @app.route("/receive-teaches", methods=['POST'])
 def recieve_teaches():
 	receive = request.values
-	return database.add_teaches(receive['instructorToPair'], receive['courseID'], receive['section'], receive['semester'], receive['year'], receive['modToPair'])
+	return database.add_teaches(receive['instructorToPair'], receive['courseID'], receive['section'], receive['semester'], receive['year'])
+
+
+@app.route("/receive-teaches-mod", methods=['POST'])
+def recieve_teaches_mod():
+	receive = request.values
+	return database.update_teaches_mod(receive['instructorToPair'], receive['courseID'], receive['section'], receive['semester'], receive['year'], receive['modToPair'])
 
 
 @app.route("/run_phase", methods=['POST'])

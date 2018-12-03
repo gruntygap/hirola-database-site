@@ -3,22 +3,17 @@ import mysql.connector
 
 
 def connect_to_db():
-	connection = mysql.connector.connect(user=config.DATABASE_USER,
-								  password=config.DATABASE_PASSWORD,
-								  host=config.DATABASE_ADDRESS,
-								  database=config.DATABASE_NAME)
+	connection = mysql.connector.connect(user=config.DATABASE_USER, password=config.DATABASE_PASSWORD,
+										 host=config.DATABASE_ADDRESS, database=config.DATABASE_NAME)
 	return connection
-
-
-def run_query():
-	pass
 
 
 def add_course(course_id, department, num_credits, title):
 	cnx = connect_to_db()
 	cursor = cnx.cursor()
 	try:
-		cursor.execute("INSERT into course values ('{}', '{}', {}, '{}');".format(course_id, department, num_credits, title))
+		cursor.execute(
+			"INSERT into course values ('{}', '{}', {}, '{}');".format(course_id, department, num_credits, title))
 	except mysql.connector.Error as err:
 		return "Something went wrong: {}".format(err)
 	cnx.commit()
@@ -53,11 +48,28 @@ def add_section(course_id, section, semester, year):
 	return "Query Completed Successfully"
 
 
-def add_teaches(instructor_id, course_id, section, semester, year, mod):
+def add_teaches(instructor_id, course_id, section, semester, year):
 	cnx = connect_to_db()
 	cursor = cnx.cursor()
 	try:
-		cursor.execute("INSERT into teaches values({}, '{}', {}, '{}', {}, '{}');".format(instructor_id, course_id, section, semester, year, mod))
+		cursor.execute(
+			"INSERT into teaches values({}, '{}', {}, '{}', {}, NULL);".format(instructor_id, course_id, section,
+																			   semester, year))
+	except mysql.connector.Error as err:
+		return "Something went wrong: {}".format(err)
+	cnx.commit()
+	cursor.close()
+	cnx.close()
+	return "Query Completed Successfully"
+
+
+def update_teaches_mod(instructor_id, course_id, section, semester, year, mod):
+	cnx = connect_to_db()
+	cursor = cnx.cursor()
+	try:
+		cursor.execute(
+			"update teaches set mod_slot = '{}' where id = {} and course_id = '{}' and sec_id = {} and semester = '{}' and year = {};".format(
+				mod, instructor_id, course_id, section, semester, year))
 	except mysql.connector.Error as err:
 		return "Something went wrong: {}".format(err)
 	cnx.commit()
@@ -69,57 +81,41 @@ def add_teaches(instructor_id, course_id, section, semester, year, mod):
 # Lots of repeated code, consider compressing
 
 
-def get_course_table():
+def get_query(query):
 	cnx = connect_to_db()
 	cursor = cnx.cursor()
-	cursor.execute("select * from course;")
+	cursor.execute(query)
 	result_set = cursor.fetchall()
 	cursor.close()
 	cnx.close()
 	return result_set
+
+
+def get_course_table():
+	return get_query("select * from course;")
 
 
 def get_course_ids():
-	cnx = connect_to_db()
-	cursor = cnx.cursor()
-	cursor.execute("select course_id from course;")
-	result_set = cursor.fetchall()
-	cursor.close()
-	cnx.close()
-	return result_set
+	return get_query("select course_id from course;")
 
 
 def get_instructor_table(string):
 	execute = "select * from instructor;"
 	if string != 'all':
 		execute = 'select first_name, last_name, id from instructor;'
-	cnx = connect_to_db()
-	cursor = cnx.cursor()
-	cursor.execute(execute)
-	result_set = cursor.fetchall()
-	cursor.close()
-	cnx.close()
-	return result_set
+	return get_query(execute)
 
 
 def get_mods():
-	cnx = connect_to_db()
-	cursor = cnx.cursor()
-	cursor.execute("select mod_slot from timeslot;")
-	result_set = cursor.fetchall()
-	cursor.close()
-	cnx.close()
-	return result_set
+	return get_query("select mod_slot from timeslot;")
 
 
 def get_teaches_table():
-	cnx = connect_to_db()
-	cursor = cnx.cursor()
-	cursor.execute("select * from teaches;")
-	result_set = cursor.fetchall()
-	cursor.close()
-	cnx.close()
-	return result_set
+	return get_query("select * from teaches;")
+
+
+def get_section_table():
+	return get_query("select * from section;")
 
 
 def run_phase(num):
@@ -154,16 +150,3 @@ def run_phase(num):
 	cnx.close()
 	file.close()
 	return "Queries Completed Successfully"
-
-
-def test_query():
-	cnx = connect_to_db()
-	cursor = cnx.cursor()
-
-	cursor.execute("select * from student;")
-
-	for (ID, name, dept_name, tot_cred) in cursor:
-		print("{}, {}, {}, {}".format(
-			ID, name, dept_name, tot_cred))
-	cursor.close()
-	cnx.close()
