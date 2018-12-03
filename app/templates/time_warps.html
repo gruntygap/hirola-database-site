@@ -72,7 +72,20 @@
             position: fixed;
             top: 50%;
             left: 50%;
-            //display: none;
+            display: none;
+            margin-top: -50px;
+            margin-left: -100px;
+            animation-name: spin;
+            animation-duration: 4000ms;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+        #loader2 {
+            width: 50%;
+            z-index: 1050;
+            position: fixed;
+            top: 50%;
+            left: 50%;
             margin-top: -50px;
             margin-left: -100px;
             animation-name: spin;
@@ -109,7 +122,7 @@
         </div>
     </div>
     <h1 id="titleOfPage">Time-warps</h1>
-    <div id="loader"><h3>Loading...</h3><img id="loader" src="{{ url_for('static', filename='hirola-wo-white.png') }}" /></div>
+    <div id="loader"><h3>Loading...</h3><img id="loader2" src="{{ url_for('static', filename='hirola-wo-white.png') }}" /></div>
     <div id="alert_placeholder"></div>
     <div class="row justify-content-center">
         <div class="card col-md-5">
@@ -177,9 +190,11 @@
             confirmB.innerHTML = "Yank train, Phase " + element.getAttribute('data-id');
             $("#confirm").click(function (e) {
                 e.preventDefault();
-                var loaderTransitionTime = document.querySelector("#loader");
-                duration = Math.random() * 4000;
+                const loaderTransitionTime = document.querySelector("#loader");
+                const loader2TransitionTime = document.querySelector("#loader2");
+                let duration = Math.random() * 4000;
                 loaderTransitionTime.style.setProperty("animation-duration", duration + "ms");
+                loader2TransitionTime.style.setProperty("animation-duration", duration + "ms");
                 $('#loader').show();
                 $("#confirm").attr("disabled",true);
                 $("#deny").attr("disabled",true);
