@@ -1,5 +1,6 @@
 {% extends "header.html" %}
 {% block head %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <style type="text/css">
         .navbar {
             background-color: red;
@@ -89,7 +90,7 @@
             margin-top: -50px;
             margin-left: -100px;
             animation-name: spin;
-            animation-duration: 4000ms;
+            animation-duration: 8000ms;
             animation-iteration-count: infinite;
             animation-timing-function: linear;
         }
@@ -192,7 +193,7 @@
                 e.preventDefault();
                 const loaderTransitionTime = document.querySelector("#loader");
                 const loader2TransitionTime = document.querySelector("#loader2");
-                let duration = Math.random() * 4000;
+                let duration = Math.random() * 8000;
                 loaderTransitionTime.style.setProperty("animation-duration", duration + "ms");
                 loader2TransitionTime.style.setProperty("animation-duration", duration + "ms");
                 $('#loader').show();

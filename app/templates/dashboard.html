@@ -101,7 +101,15 @@
         {% for each in teaches %}
             <tr>
                 {% for item in each %}
-                    <td>{{ item }}</td>
+                    {% if item == None %}
+                        <td>
+                            <button type="button" class="badge badge-danger" data-container="body" data-toggle="popover"
+                                    data-placement="top"
+                                    data-content="Be sure to associate a mod to this class">
+                            {{ item }}</button></td>
+                    {% else %}
+                        <td>{{ item }}</td>
+                    {% endif %}
                 {% endfor %}
             </tr>
         {% endfor %}
@@ -109,4 +117,9 @@
     </table>
     <i>{{ teaches.__len__() }} Assigned Courses</i>
     <a class="btn btn-primary" href="/functions">Associate Course with Instructor</a>
+    <script>
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        })
+    </script>
 {% endblock %}
