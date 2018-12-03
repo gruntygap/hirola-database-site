@@ -49,7 +49,13 @@ def receive_section():
 @app.route("/receive-teaches", methods=['POST'])
 def recieve_teaches():
 	receive = request.values
-	return database.add_teaches(receive['instructorToPair'], receive['courseID'], receive['section'], receive['semester'], receive['year'], receive['modToPair'])
+	return database.add_teaches(receive['instructorToPair'], receive['courseID'], receive['section'], receive['semester'], receive['year'])
+
+
+@app.route("/receive-teaches-mod", methods=['POST'])
+def recieve_teaches_mod():
+	receive = request.values
+	return database.update_teaches_mod(receive['instructorToPair'], receive['courseID'], receive['section'], receive['semester'], receive['year'], receive['modToPair'])
 
 
 @app.route("/run_phase", methods=['POST'])
