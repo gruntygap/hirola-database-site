@@ -28,7 +28,7 @@ def add_cluster(course_id, cluster_id):
 	cursor = cnx.cursor()
 	try:
 		cursor.execute(
-			"INSERT into course values ('{}', '{}');".format(course_id, cluster_id))
+			"INSERT into likely_course_conflicts values ('{}', {});".format(course_id, cluster_id))
 	except mysql.connector.Error as err:
 		return "Something went wrong: {}".format(err)
 	cnx.commit()
