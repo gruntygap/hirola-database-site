@@ -96,6 +96,10 @@ def get_course_table():
 	return get_query("select * from course;")
 
 
+def get_cluster_table():
+	return get_query("select * from likely_course_conflicts order by cluster_id;")
+
+
 def get_course_ids():
 	return get_query("select course_id from course;")
 

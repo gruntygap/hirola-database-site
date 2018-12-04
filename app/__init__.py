@@ -7,10 +7,11 @@ app = Flask(__name__)
 @app.route('/')
 def landing_page():
 	courses = database.get_course_table()
+	clusters = database.get_cluster_table()
 	instructors = database.get_instructor_table('all')
 	teaches = database.get_teaches_table()
 	sections = database.get_section_table()
-	return render_template('dashboard.html', courses=courses, instructors=instructors, teaches=teaches, sections=sections)
+	return render_template('dashboard.html', courses=courses, instructors=instructors, teaches=teaches, sections=sections, clusters=clusters)
 
 
 @app.route('/functions')
