@@ -106,6 +106,21 @@ def update_teaches_mod(instructor_id, course_id, section, semester, year, mod):
 	return "Query Completed Successfully"
 
 
+def add_non_ins_load(instructor_id, task, teu, semester, year):
+	cnx = connect_to_db()
+	cursor = cnx.cursor()
+	try:
+		cursor.execute(
+			"INSERT into non_instructional_load values({}, '{}', {}, '{}', {});".format(instructor_id, task, teu,
+																			   semester, year))
+	except mysql.connector.Error as err:
+		return "Something went wrong: {}".format(err)
+	cnx.commit()
+	cursor.close()
+	cnx.close()
+	return "Query Completed Successfully"
+
+
 # Lots of repeated code, consider compressing
 
 
@@ -149,6 +164,8 @@ def get_teaches_table():
 def get_section_table():
 	return get_query("select * from section;")
 
+def get_non_instructional_load_table():
+	return get_query("select * from non_instructional_load;")
 
 def run_phase(num):
 	path = ""

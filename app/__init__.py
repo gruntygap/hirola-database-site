@@ -12,7 +12,8 @@ def landing_page():
 	instructors = database.get_instructor_table('all')
 	teaches = database.get_teaches_table()
 	sections = database.get_section_table()
-	return render_template('dashboard.html', courses=courses, instructors=instructors, teaches=teaches, sections=sections, clusters=clusters)
+	non_ins_load = database.get_non_instructional_load_table()
+	return render_template('dashboard.html', courses=courses, instructors=instructors, teaches=teaches, sections=sections, clusters=clusters, non_ins_load=non_ins_load)
 
 
 @app.route('/functions')
@@ -71,6 +72,12 @@ def recieve_teaches():
 def recieve_teaches_mod():
 	receive = request.values
 	return database.update_teaches_mod(receive['instructorToPair'], receive['courseID'], receive['section'], receive['semester'], receive['year'], receive['modToPair'])
+
+
+@app.route("/receive-non-ins-load", methods=['POST'])
+def recieve_non_ins_load():
+	receive = request.values
+	return database.add_non_ins_load(receive['instructorID'], receive['task'], receive['teu'], receive['semester'], receive['year'])
 
 
 @app.route("/run_phase", methods=['POST'])

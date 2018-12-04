@@ -11,6 +11,7 @@
                     <li><a href="#instructors">Instructors</a></li>
                     <li><a href="#sections">Sections</a></li>
                     <li><a href="#teaches">Teaches</a></li>
+                    <li><a href="#non-instructional-load">Non-Instructional Load</a></li>
                 </ul>
             </div>
         </div>
@@ -144,6 +145,32 @@
     </table>
     <i>{{ teaches.__len__() }} Assigned Courses</i>
     <a class="btn btn-primary" href="/functions">Associate Course with Instructor</a>
+
+    <hr>
+    <h3 id="non-instructional-load">Non-Instructional Load</h3>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Instructor ID</th>
+                <th>Task</th>
+                <th>TEU Value</th>
+                <th>Semester</th>
+                <th>Year</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for each in non_ins_load %}
+                <tr>
+                    {% for item in each %}
+                        <td>{{ item }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <i>{{ non_ins_load.__len__() }} Non-Instructional Loads</i>
+    <a class="btn btn-primary" href="/functions">Add Non-Instructional Load</a>
+
     <script>
         $(function () {
             $('[data-toggle="popover"]').popover()

@@ -1,0 +1,64 @@
+<form id="createNonInsLoad" action="" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="instructorIDLookup">Instructor ID</label>
+        <select class="form-control" id="instructorIDLookup" name="instructorID">
+            {% for each in instructors %}
+            <option>{{ each[2] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="task">Task</label>
+        <input type="text" class="form-control" id="task" name="task" aria-describedby="taskHelp"
+               placeholder="Enter task">
+        <small id="taskHelp" class="form-text text-muted">Ex. 'Lab Coordinator'</small>
+    </div>
+    <div class="form-group">
+        <label for="teu">TEUs</label>
+        <input type="text" class="form-control" id="teu" name="teu" aria-describedby="teuHelp"
+               placeholder="Enter TEUs">
+        <small id="teuHelp" class="form-text text-muted">Ex. '3.4'</small>
+    </div>
+    <div class="form-group">
+        <label for="semester">Semester</label>
+        <select class="form-control" id="semester" name="semester">
+            <option>Fall</option>
+            <option>Interim</option>
+            <option>Spring</option>
+            <option>Summer</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="year">Year</label>
+        <input type="number" class="form-control" min="1990" step="1" id="year" name="year"
+               placeholder="2000">
+    </div>
+    <input type="submit" value="Add Non-Instructional Load" class="btn btn-primary" />
+</form>
+<div id = "alert_placeholder_non_ins_load"></div>
+
+<script>
+    $("#createNonInsLoad").submit(function() {
+        $.ajax({
+            url:'/receive-non-ins-load',
+            type:'post',
+            data: $('#createNonInsLoad').serialize(),
+            success: function(result) {
+                if (result == "Query Completed Successfully") {
+                    $('#alert_placeholder_non_ins_load').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> '+ result +'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                    $('#instructorIDLookup').val('');
+                    $('#task').val('');
+                    $('#teu').val('');
+                    $('#semester').val('');
+                    $('#year').val('');
+                } else {
+                    $('#alert_placeholder_non_ins_load').html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>JA JA JA JA</strong> '+ result +'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                }
+            },
+            error: function(result) {
+                alert(result);
+            }
+        });
+        return false;
+    });
+</script>
