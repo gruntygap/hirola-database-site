@@ -17,11 +17,10 @@ def landing_page():
 @app.route('/functions')
 def function_page():
 	course_ids = database.get_course_ids()
-	course_ids2 = database.get_course_ids()
 	mods = database.get_mods()
 	instructors = database.get_instructor_table('part')
 	clusters = database.get_cluster_table()
-	return render_template('input_functions.html', course_ids=course_ids, course_ids2=course_ids2, mods=mods, instructors=instructors, clusters=clusters)
+	return render_template('input_functions.html', course_ids=course_ids, mods=mods, instructors=instructors, clusters=clusters)
 
 
 @app.route('/time-warps')
