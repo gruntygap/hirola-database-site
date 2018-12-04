@@ -3,7 +3,7 @@
         <label for="courseIDLookup">Course ID</label>
         <select class="form-control" id="courseIDLookup" name="courseID">
             {% for each in course_ids %}
-            <option>{{ each[0] }}</option>
+                <option>{{ each[0] }}</option>
             {% endfor %}
         </select>
     </div>
@@ -40,7 +40,15 @@
         <select class="form-control" id="modToPair" name="modToPair">
             {# Use jinja and a passed in dictionary / array of classes #}
             {% for each in mods %}
-            <option>{{ each[0] }}</option>
+                <option>{{ each[0] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="teach">Teaches Entry</label>
+        <select class="form-control" id="teach" name="teach" size="10">
+            {% for each in teaches %}
+                <option value="{'id':'{{ each[0] }}','course_id':'{{ each[1] }}','section':'{{ each[2] }}','semester':'{{ each[3] }}', 'year':'{{ each[4] }}'}">{{ each[0] }} -- {{ each[1] }} -- {{ each[2] }} -- {{ each[3] }} -- {{ each[4] }} -- {{ each[5] }}</option>
             {% endfor %}
         </select>
     </div>
@@ -48,14 +56,14 @@
 </form>
 <div id="alert_placeholder_mod"></div>
 <script>
-    $("#createMod").submit(function() {
+    $("#createMod").submit(function () {
         $.ajax({
-            url:'/receive-teaches-mod',
-            type:'post',
+            url: '/receive-teaches-mod',
+            type: 'post',
             data: $('#createMod').serialize(),
-            success: function(result) {
+            success: function (result) {
                 if (result == "Query Completed Successfully") {
-                    $('#alert_placeholder_mod').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> '+ result +'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                    $('#alert_placeholder_mod').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                     $('#courseIDLookup').val('');
                     $('#section').val('');
                     $('#semester').val('');
@@ -66,7 +74,7 @@
                     $('#alert_placeholder_mod').html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>JA JA JA JA</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 }
             },
-            error: function(result) {
+            error: function (result) {
                 alert(result);
             }
         });

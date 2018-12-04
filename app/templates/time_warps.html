@@ -206,11 +206,26 @@
                         id: element.getAttribute('data-id'),
                     },
                     success: function (result) {
+                        // Parse the result array
+                        result = JSON.parse(result);
+                        let errors = [];
+                        for(let i = 0; i < result.length; i++){
+                            if (result[i] == "Queries Completed Successfully") {
+                                // Do nothing
+                            } else {
+                                errors.push(result[i]);
+                            }
+                        }
                         $('#loader').hide();
-                        if (result == "Queries Completed Successfully") {
-                            $('#alert_placeholder').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                        if (errors.length == 0) {
+                            $('#alert_placeholder').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + "Queries Completed Successfully" + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                         } else {
-                            $('#alert_placeholder').html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>JA JA JA</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                            let errors_string = "";
+                            console.log(errors_string);
+                            for (let i = 0; i < errors.length; i++){
+                                errors_string = errors_string + ('<div>' + errors[i] +'</div><hr>');
+                            }
+                            $('#alert_placeholder').html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>JA JA JA</strong> ' + errors_string + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                         }
                         $("#confirm").attr("disabled",false);
                         $("#deny").attr("disabled",false);

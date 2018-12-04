@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect
 import app.database as database
+import json
 
 app = Flask(__name__)
 
@@ -20,8 +21,8 @@ def function_page():
 	mods = database.get_mods()
 	instructors = database.get_instructor_table('part')
 	clusters = database.get_cluster_table()
-	return render_template('input_functions.html', course_ids=course_ids, mods=mods, instructors=instructors, clusters=clusters)
-
+	teaches = database.get_teaches_table()
+	return render_template('input_functions.html', course_ids=course_ids, mods=mods, instructors=instructors, clusters=clusters, teaches=teaches)
 
 @app.route('/time-warps')
 def time_warps():
@@ -74,5 +75,7 @@ def recieve_teaches_mod():
 
 @app.route("/run_phase", methods=['POST'])
 def execute_phase():
-	return database.run_phase(int(request.values["id"]))
+	response = database.run_phase(int(request.values["id"]))
+	response = json.dumps(response)
+	return response
 
