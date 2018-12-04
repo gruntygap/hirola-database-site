@@ -1,0 +1,63 @@
+<h3 id="clusters">Existing Course Clusters</h3>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Course ID</th>
+            <th>Cluster ID</th>
+            <th>Remove From Cluster</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for each in clusters %}
+        <tr>
+            {% for item in each %}
+                <td>{{ item }}</td>
+            {% endfor %}
+            <td><a href="/remove-cluster/{{ each[0] }}/{{ each[1] }}" class="btn btn-danger">Remove</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<hr>
+<h3>Add Course to Cluster/Create New Course Cluster</h3>
+<form id="createCluster" action="" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="courseIDLookup">Course ID</label>
+        <select class="form-control" id="courseIDLookup" name="courseID">
+            {% for each in course_ids %}
+            <option>{{ each[0] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="clusterID">Cluster ID</label>
+        <input type="text" class="form-control" id="clusterID" name="clusterID" placeholder="Enter cluster id">
+        <small>Enter an existing cluster id to add to cluster or a new cluster id to start a new cluster.</small>
+    </div>
+
+    <input type="submit" value="Add Cluster" class="btn btn-primary" />
+</form>
+<div id = "alert_placeholder_cluster"></div>
+<script>
+    $("#createCluster").submit(function() {
+        $.ajax({
+            url:'/receive-cluster',
+            type:'post',
+            data: $('#createCluster').serialize(),
+            success: function(result) {
+                if (result == "Query Completed Successfully") {
+                    $('#alert_placeholder_course').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> '+ result +'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                    $('#courseIDLookup').val('');
+                    $('#clusterID').val('');
+                } else {
+                    $('#alert_placeholder_course').html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>JA JA JA JA</strong> '+ result +'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                }
+            },
+            error: function(result) {
+                alert(result);
+            }
+        });
+        return false;
+    });
+</script>

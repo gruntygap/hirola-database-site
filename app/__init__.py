@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 import app.database as database
 
 app = Flask(__name__)
@@ -7,10 +7,11 @@ app = Flask(__name__)
 @app.route('/')
 def landing_page():
 	courses = database.get_course_table()
+	clusters = database.get_cluster_table()
 	instructors = database.get_instructor_table('all')
 	teaches = database.get_teaches_table()
 	sections = database.get_section_table()
-	return render_template('dashboard.html', courses=courses, instructors=instructors, teaches=teaches, sections=sections)
+	return render_template('dashboard.html', courses=courses, instructors=instructors, teaches=teaches, sections=sections, clusters=clusters)
 
 
 @app.route('/functions')
@@ -18,7 +19,8 @@ def function_page():
 	course_ids = database.get_course_ids()
 	mods = database.get_mods()
 	instructors = database.get_instructor_table('part')
-	return render_template('input_functions.html', course_ids=course_ids, mods=mods, instructors=instructors)
+	clusters = database.get_cluster_table()
+	return render_template('input_functions.html', course_ids=course_ids, mods=mods, instructors=instructors, clusters=clusters)
 
 
 @app.route('/time-warps')
@@ -30,6 +32,18 @@ def time_warps():
 def receive_course():
 	receive = request.values
 	return database.add_course(receive['courseID'], receive['department'], receive['credits'], receive['title'])
+
+
+@app.route("/receive-cluster", methods=['POST'])
+def receive_cluster():
+	receive = request.values
+	return database.add_cluster(receive['courseID'], receive['clusterID'])
+
+
+@app.route("/remove-cluster/<course_id>/<cluster_id>", methods=['GET'])
+def remove_cluster(course_id, cluster_id):
+	remove = database.remove_cluster(course_id, cluster_id)
+	return redirect('/functions')
 
 
 @app.route("/receive-instructor", methods=['POST'])

@@ -23,6 +23,33 @@ def add_course(course_id, department, num_credits, title):
 	return "Query Completed Successfully"
 
 
+def add_cluster(course_id, cluster_id):
+	cnx = connect_to_db()
+	cursor = cnx.cursor()
+	try:
+		cursor.execute(
+			"INSERT into likely_course_conflicts values ('{}', {});".format(course_id, cluster_id))
+	except mysql.connector.Error as err:
+		return "Something went wrong: {}".format(err)
+	cnx.commit()
+	cursor.close()
+	cnx.close()
+	return "Query Completed Successfully"
+
+def remove_cluster(course_id, cluster_id):
+	cnx = connect_to_db()
+	cursor = cnx.cursor()
+	try:
+		cursor.execute(
+			"DELETE from likely_course_conflicts where course_id = '{}' and cluster_id = {};".format(course_id, cluster_id))
+	except mysql.connector.Error as err:
+		return "Something went wrong: {}".format(err)
+	cnx.commit()
+	cursor.close()
+	cnx.close()
+	return "Query Completed Successfully"
+
+
 def add_instructor(first, last, email, id, load):
 	cnx = connect_to_db()
 	cursor = cnx.cursor()
@@ -94,6 +121,10 @@ def get_query(query):
 
 def get_course_table():
 	return get_query("select * from course;")
+
+
+def get_cluster_table():
+	return get_query("select * from likely_course_conflicts order by cluster_id;")
 
 
 def get_course_ids():
