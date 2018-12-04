@@ -71,7 +71,8 @@ def recieve_teaches():
 @app.route("/receive-teaches-mod", methods=['POST'])
 def recieve_teaches_mod():
 	receive = request.values
-	return database.update_teaches_mod(receive['instructorToPair'], receive['courseID'], receive['section'], receive['semester'], receive['year'], receive['modToPair'])
+	teaches = json.loads(receive['teach'])
+	return database.update_teaches_mod(teaches['id'], teaches['course_id'], teaches['section'], teaches['semester'], teaches['year'], receive['modToPair'])
 
 
 @app.route("/receive-non-ins-load", methods=['POST'])
