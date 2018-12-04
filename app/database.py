@@ -152,33 +152,50 @@ def get_section_table():
 
 def run_phase(num):
 	path = ""
+	response_stack = []
 	if num is 1:
 		path = "app/phases/phase_1.txt"
 	elif num is 2:
-		run_phase(1)
+		stack = run_phase(1)
+		response_stack.append(stack[0])
 		path = "app/phases/phase_2.txt"
 	elif num is 3:
-		run_phase(2)
+		stack = run_phase(2)
+		response_stack.append(stack[0])
+		response_stack.append(stack[1])
 		path = "app/phases/phase_3.txt"
 	elif num is 4:
-		run_phase(3)
+		stack = run_phase(3)
+		response_stack.append(stack[0])
+		response_stack.append(stack[1])
+		response_stack.append(stack[2])
 		path = "app/phases/phase_4.txt"
 	elif num is 5:
-		run_phase(4)
+		stack = run_phase(4)
+		response_stack.append(stack[0])
+		response_stack.append(stack[1])
+		response_stack.append(stack[2])
+		response_stack.append(stack[3])
 		path = "app/phases/phase_5.txt"
 	cnx = connect_to_db()
 	cursor = cnx.cursor()
 	file = open(path, 'r')
-
+	count = 1
+	errored = False
 	for line in file:
 		try:
 			cursor.execute("{}".format(line))
 			cnx.commit()
 		except mysql.connector.Error as err:
-			error_string = "Something went wrong: {}".format(err)
-			print(error_string)
-			return error_string
+			error_string = "PHASE " + str(num) + ": LINE_" + str(count) + ": " + "Something went wrong: {}".format(err)
+			print("PHASE " + str(num) + ": LINE_" + str(count) + ": " + "Something went wrong: {}".format(err))
+			response_stack.append(error_string)
+			errored = True
+			break
+		count = count + 1
 	cursor.close()
 	cnx.close()
 	file.close()
-	return "Queries Completed Successfully"
+	if errored is False:
+		response_stack.append("Queries Completed Successfully")
+	return response_stack
