@@ -36,6 +36,19 @@ def add_cluster(course_id, cluster_id):
 	cnx.close()
 	return "Query Completed Successfully"
 
+def remove_cluster(course_id, cluster_id):
+	cnx = connect_to_db()
+	cursor = cnx.cursor()
+	try:
+		cursor.execute(
+			"DELETE from likely_course_conflicts where course_id = '{}' and cluster_id = {};".format(course_id, cluster_id))
+	except mysql.connector.Error as err:
+		return "Something went wrong: {}".format(err)
+	cnx.commit()
+	cursor.close()
+	cnx.close()
+	return "Query Completed Successfully"
+
 
 def add_instructor(first, last, email, id, load):
 	cnx = connect_to_db()

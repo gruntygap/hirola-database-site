@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 import app.database as database
 
 app = Flask(__name__)
@@ -38,6 +38,12 @@ def receive_course():
 def receive_cluster():
 	receive = request.values
 	return database.add_cluster(receive['courseID'], receive['clusterID'])
+
+
+@app.route("/remove-cluster/<course_id>/<cluster_id>", methods=['GET'])
+def remove_cluster(course_id, cluster_id):
+	remove = database.remove_cluster(course_id, cluster_id)
+	return redirect('/functions')
 
 
 @app.route("/receive-instructor", methods=['POST'])
