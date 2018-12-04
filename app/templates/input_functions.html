@@ -106,5 +106,22 @@
                 </div>
             </div>
         </div>
+
+        <div class="card">
+            <div class="card-header" id="headingSeven">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed collapse-title" type="button" data-toggle="collapse"
+                            data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                        Add Non-Instructional Load
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
+                <div class="card-body">
+                    {% include 'add-non-instructional-load.html' with context %}
+                </div>
+            </div>
+        </div>
+
     </div>
 {% endblock %}
