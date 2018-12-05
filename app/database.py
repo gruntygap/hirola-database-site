@@ -76,6 +76,19 @@ def add_section(course_id, section, semester, year):
 	return "Query Completed Successfully"
 
 
+def add_time_restriction(instructor_id, mod):
+	cnx = connect_to_db()
+	cursor = cnx.cursor()
+	try:
+		cursor.execute("INSERT into instructor_time_restrictions values ({}, '{}');".format(instructor_id, mod))
+	except mysql.connector.Error as err:
+		return "Something went wrong: {}".format(err)
+	cnx.commit()
+	cursor.close()
+	cnx.close()
+	return "Query Completed Successfully"
+
+
 def add_teaches(instructor_id, course_id, section, semester, year):
 	cnx = connect_to_db()
 	cursor = cnx.cursor()
@@ -155,6 +168,10 @@ def get_instructor_table(string):
 
 def get_mods():
 	return get_query("select mod_slot from timeslot;")
+
+
+def get_instructor_time_restrictions_table():
+	return get_query("select * from instructor_time_restrictions")
 
 
 def get_teaches_table():

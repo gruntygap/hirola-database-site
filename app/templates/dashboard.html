@@ -10,6 +10,7 @@
                     <li><a href="#clusters">Course Clusters</a></li>
                     <li><a href="#instructors">Instructors</a></li>
                     <li><a href="#sections">Sections</a></li>
+                    <li><a href="#instructor-time-restrictions">Instructor Time Restrictions</a></li>
                     <li><a href="#teaches">Teaches</a></li>
                     <li><a href="#non-instructional-load">Non-Instructional Load</a></li>
                 </ul>
@@ -111,6 +112,28 @@
     </table>
     <i>{{ sections.__len__() }} Sections</i>
     <a class="btn btn-primary" href="/functions">Add Section</a>
+
+    <hr>
+    <h3 id="instructor-time-restrictions">Instructor Time Restrictions</h3>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Instructor ID</th>
+                <th>Mod</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for each in ins_time_restrict %}
+            <tr>
+                {% for item in each %}
+                    <td>{{ item }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <i>{{ ins_time_restrict.__len__() }} Time Restrictions</i>
+    <a class="btn btn-primary" href="/functions">Add Instructor Time Restriction</a>
 
     <hr>
     <h3 id="teaches">Teaches</h3>
