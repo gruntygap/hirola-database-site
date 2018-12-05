@@ -46,8 +46,17 @@ def receive_cluster():
 
 @app.route("/remove-cluster/<course_id>/<cluster_id>", methods=['GET'])
 def remove_cluster(course_id, cluster_id):
-	remove = database.remove_cluster(course_id, cluster_id)
-	return redirect('/functions')
+	database.remove_cluster(course_id, cluster_id)
+	course_ids = database.get_course_ids()
+	clusters = database.get_cluster_table()
+	return render_template('add-cluster.html', **locals())
+
+
+@app.route("/add-cluster", methods=['GET'])
+def add_cluster():
+	course_ids = database.get_course_ids()
+	clusters = database.get_cluster_table()
+	return render_template('add-cluster.html', **locals())
 
 
 @app.route("/receive-instructor", methods=['POST'])
@@ -100,3 +109,16 @@ def execute_phase():
 def get_assign_mod():
 	teaches = database.get_teaches_table()
 	return render_template("assign-mod-select.html", teaches=teaches)
+
+
+@app.route("/get-cluster-page", methods=['GET'])
+def get_cluster_page():
+	course_ids = database.get_course_ids()
+	clusters = database.get_cluster_table()
+	return render_template("add-cluster.html", **locals())
+
+
+@app.route("/get-section-page", methods=['GET'])
+def get_section_page():
+	course_ids = database.get_course_ids()
+	return render_template("add-section-course.html", **locals())

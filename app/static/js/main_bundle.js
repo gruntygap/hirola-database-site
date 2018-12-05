@@ -105,6 +105,7 @@ function create_cluster() {
         data: $('#createCluster').serialize(),
         success: function (result) {
             if (result == "Query Completed Successfully") {
+                reloadPage('add-cluster', '/add-cluster');
                 $('#alert_placeholder_cluster').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 $('#courseIDLookup').val('');
                 $('#clusterID').val('');
@@ -232,4 +233,10 @@ function create_section() {
         }
     });
     return false;
+}
+
+function reloadPage(id, url) {
+    $.get(url, function (data) {
+        $('#' + id).html(data);
+    });
 }
