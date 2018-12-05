@@ -13,7 +13,7 @@
             {% for item in each %}
                 <td>{{ item }}</td>
             {% endfor %}
-            <td><a href="/remove-cluster/{{ each[0] }}/{{ each[1] }}" class="btn btn-danger">Remove</a></td>
+            <td><a class="btn btn-danger" onclick="reloadPage('add-cluster', '/remove-cluster/{{ each[0] }}/{{ each[1] }}')">Remove</a></td>
         </tr>
     {% endfor %}
     </tbody>

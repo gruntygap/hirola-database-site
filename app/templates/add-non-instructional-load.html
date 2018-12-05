@@ -1,9 +1,9 @@
 <form id="createNonInsLoad" action="" enctype="multipart/form-data">
     <div class="form-group">
-        <label for="instructorIDLookup">Instructor ID</label>
+        <label for="instructorIDLookup">Instructor</label>
         <select class="form-control" id="instructorIDLookup" name="instructorID">
             {% for each in instructors %}
-            <option>{{ each[2] }}</option>
+                <option value="{{ each[2] }}">{{ each[1] }}, {{ each[0] }}</option>
             {% endfor %}
         </select>
     </div>
