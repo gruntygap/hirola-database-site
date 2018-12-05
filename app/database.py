@@ -9,129 +9,63 @@ def connect_to_db():
 	return connection
 
 
-def add_course(course_id, department, num_credits, title):
+def update_or_add_query(string):
 	cnx = connect_to_db()
 	cursor = cnx.cursor()
 	try:
-		cursor.execute(
-			"INSERT into course values ('{}', '{}', {}, '{}');".format(course_id, department, num_credits, title))
+		cursor.execute(string)
 	except mysql.connector.Error as err:
 		return "Something went wrong: {}".format(err)
 	cnx.commit()
 	cursor.close()
 	cnx.close()
 	return "Query Completed Successfully"
+
+
+def add_course(course_id, department, num_credits, title):
+	return update_or_add_query(
+		"INSERT into course values ('{}', '{}', {}, '{}');".format(course_id, department, num_credits, title))
 
 
 def add_cluster(course_id, cluster_id):
-	cnx = connect_to_db()
-	cursor = cnx.cursor()
-	try:
-		cursor.execute(
-			"INSERT into likely_course_conflicts values ('{}', {});".format(course_id, cluster_id))
-	except mysql.connector.Error as err:
-		return "Something went wrong: {}".format(err)
-	cnx.commit()
-	cursor.close()
-	cnx.close()
-	return "Query Completed Successfully"
+	return update_or_add_query("INSERT into likely_course_conflicts values ('{}', {});".format(course_id, cluster_id))
+
 
 def remove_cluster(course_id, cluster_id):
-	cnx = connect_to_db()
-	cursor = cnx.cursor()
-	try:
-		cursor.execute(
-			"DELETE from likely_course_conflicts where course_id = '{}' and cluster_id = {};".format(course_id, cluster_id))
-	except mysql.connector.Error as err:
-		return "Something went wrong: {}".format(err)
-	cnx.commit()
-	cursor.close()
-	cnx.close()
-	return "Query Completed Successfully"
+	return update_or_add_query(
+		"DELETE from likely_course_conflicts where course_id = '{}' and cluster_id = {};".format(course_id, cluster_id))
 
 
 def add_instructor(first, last, email, id, load):
-	cnx = connect_to_db()
-	cursor = cnx.cursor()
-	try:
-		cursor.execute("INSERT into instructor values ('{}', '{}', '{}', {}, {});".format(first, last, email, id, load))
-	except mysql.connector.Error as err:
-		return "Something went wrong: {}".format(err)
-	cnx.commit()
-	cursor.close()
-	cnx.close()
-	return "Query Completed Successfully"
+	return update_or_add_query(
+		"INSERT into instructor values ('{}', '{}', '{}', {}, {});".format(first, last, email, id, load))
 
 
 def add_section(course_id, section, semester, year):
-	cnx = connect_to_db()
-	cursor = cnx.cursor()
-	try:
-		cursor.execute("INSERT into section values ('{}', {}, '{}', {});".format(course_id, section, semester, year))
-	except mysql.connector.Error as err:
-		return "Something went wrong: {}".format(err)
-	cnx.commit()
-	cursor.close()
-	cnx.close()
-	return "Query Completed Successfully"
+	return update_or_add_query(
+		"INSERT into section values ('{}', {}, '{}', {});".format(course_id, section, semester, year))
 
 
 def add_time_restriction(instructor_id, mod):
-	cnx = connect_to_db()
-	cursor = cnx.cursor()
-	try:
-		cursor.execute("INSERT into instructor_time_restrictions values ({}, '{}');".format(instructor_id, mod))
-	except mysql.connector.Error as err:
-		return "Something went wrong: {}".format(err)
-	cnx.commit()
-	cursor.close()
-	cnx.close()
-	return "Query Completed Successfully"
+	return update_or_add_query("INSERT into instructor_time_restrictions values ({}, '{}');".format(instructor_id, mod))
 
 
 def add_teaches(instructor_id, course_id, section, semester, year):
-	cnx = connect_to_db()
-	cursor = cnx.cursor()
-	try:
-		cursor.execute(
-			"INSERT into teaches values({}, '{}', {}, '{}', {}, NULL);".format(instructor_id, course_id, section,
-																			   semester, year))
-	except mysql.connector.Error as err:
-		return "Something went wrong: {}".format(err)
-	cnx.commit()
-	cursor.close()
-	cnx.close()
-	return "Query Completed Successfully"
+	return update_or_add_query(
+		"INSERT into teaches values({}, '{}', {}, '{}', {}, NULL);".format(instructor_id, course_id, section, semester,
+																		   year))
 
 
 def update_teaches_mod(instructor_id, course_id, section, semester, year, mod):
-	cnx = connect_to_db()
-	cursor = cnx.cursor()
-	try:
-		cursor.execute(
-			"update teaches set mod_slot = '{}' where id = {} and course_id = '{}' and sec_id = {} and semester = '{}' and year = {};".format(
-				mod, instructor_id, course_id, section, semester, year))
-	except mysql.connector.Error as err:
-		return "Something went wrong: {}".format(err)
-	cnx.commit()
-	cursor.close()
-	cnx.close()
-	return "Query Completed Successfully"
+	return update_or_add_query(
+		"update teaches set mod_slot = '{}' where id = {} and course_id = '{}' and sec_id = {} and semester = '{}' and year = {};".format(
+			mod, instructor_id, course_id, section, semester, year))
 
 
 def add_non_ins_load(instructor_id, task, teu, semester, year):
-	cnx = connect_to_db()
-	cursor = cnx.cursor()
-	try:
-		cursor.execute(
-			"INSERT into non_instructional_load values({}, '{}', {}, '{}', {});".format(instructor_id, task, teu,
-																			   semester, year))
-	except mysql.connector.Error as err:
-		return "Something went wrong: {}".format(err)
-	cnx.commit()
-	cursor.close()
-	cnx.close()
-	return "Query Completed Successfully"
+	return update_or_add_query(
+		"INSERT into non_instructional_load values({}, '{}', {}, '{}', {});".format(instructor_id, task, teu, semester,
+																					year))
 
 
 # Lots of repeated code, consider compressing
@@ -181,8 +115,10 @@ def get_teaches_table():
 def get_section_table():
 	return get_query("select * from section;")
 
+
 def get_non_instructional_load_table():
 	return get_query("select * from non_instructional_load;")
+
 
 def run_phase(num):
 	path = ""

@@ -1,4 +1,30 @@
 {% extends "header.html" %}
+{% block head %}
+    <style type="text/css">
+        #ad-revenue {
+            height: 10%;
+            background-color: beige;
+            position: sticky;
+            top: 0;
+            margin-top: 1rem;
+            border:1px solid black;
+        }
+
+        #mascot {
+            height: -webkit-fill-available;
+            animation: example;
+            animation-duration: 5s;
+            animation-direction: alternate;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+
+        @keyframes example {
+            from { padding-left: 0% }
+            to { padding-left: 90% }
+        }
+    </style>
+{% endblock %}
 {% block content %}
     <h1 id="titleOfPage">Dashboard:</h1>
     <div class="card">
@@ -17,7 +43,10 @@
             </div>
         </div>
     </div>
-
+    <div id="ad-revenue">
+        <h1 style="position: absolute; z-index: -1;">Please donate, we need money</h1>
+        <img id="mascot" src="{{ url_for('static', filename='hirola-wo-white.png') }}"/>
+    </div>
     <hr>
     <h3 id="courses">Courses</h3>
     <table class="table">
@@ -46,10 +75,10 @@
     <h3 id="clusters">Course Clusters</h3>
     <table class="table">
         <thead class="thead-dark">
-            <tr>
-                <th>Course ID</th>
-                <th>Cluster ID</th>
-            </tr>
+        <tr>
+            <th>Course ID</th>
+            <th>Cluster ID</th>
+        </tr>
         </thead>
         <tbody>
         {% for each in clusters %}
@@ -117,10 +146,10 @@
     <h3 id="instructor-time-restrictions">Instructor Time Restrictions</h3>
     <table class="table">
         <thead class="thead-dark">
-            <tr>
-                <th>Instructor ID</th>
-                <th>Mod</th>
-            </tr>
+        <tr>
+            <th>Instructor ID</th>
+            <th>Mod</th>
+        </tr>
         </thead>
         <tbody>
         {% for each in ins_time_restrict %}
@@ -157,7 +186,8 @@
                             <button type="button" class="badge badge-danger" data-container="body" data-toggle="popover"
                                     data-placement="top"
                                     data-content="Be sure to associate a mod to this class">
-                            {{ item }}</button></td>
+                                {{ item }}</button>
+                        </td>
                     {% else %}
                         <td>{{ item }}</td>
                     {% endif %}
@@ -173,22 +203,22 @@
     <h3 id="non-instructional-load">Non-Instructional Load</h3>
     <table class="table">
         <thead class="thead-dark">
-            <tr>
-                <th>Instructor ID</th>
-                <th>Task</th>
-                <th>TEU Value</th>
-                <th>Semester</th>
-                <th>Year</th>
-            </tr>
+        <tr>
+            <th>Instructor ID</th>
+            <th>Task</th>
+            <th>TEU Value</th>
+            <th>Semester</th>
+            <th>Year</th>
+        </tr>
         </thead>
         <tbody>
-            {% for each in non_ins_load %}
-                <tr>
-                    {% for item in each %}
-                        <td>{{ item }}</td>
-                    {% endfor %}
-                </tr>
-            {% endfor %}
+        {% for each in non_ins_load %}
+            <tr>
+                {% for item in each %}
+                    <td>{{ item }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
     <i>{{ non_ins_load.__len__() }} Non-Instructional Loads</i>
