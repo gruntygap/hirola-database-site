@@ -21,24 +21,9 @@
 </form>
 <div id="alert_placeholder_restriction"></div>
 <script>
-    $("#createRestriction").submit(function () {
-        $.ajax({
-            url: '/receive-restriction',
-            type: 'post',
-            data: $('#createRestriction').serialize(),
-            success: function (result) {
-                if (result == "Query Completed Successfully") {
-                    $('#alert_placeholder_restriction').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                    $('#instructorToPair').val('');
-                    $('#modToPair').val('');
-                } else {
-                    $('#alert_placeholder_restriction').html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>JA JA JA JA</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                }
-            },
-            error: function (result) {
-                alert(result);
-            }
+    $(document).ready(function () {
+        $("#createRestriction").submit(function () {
+            return create_restriction()
         });
-        return false;
     });
 </script>

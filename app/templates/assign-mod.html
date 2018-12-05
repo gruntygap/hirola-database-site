@@ -19,26 +19,12 @@
     </div>
     <input type="submit" value="Assign MOD to Course" class="btn btn-primary"/>
 </form>
+<div id="render"></div>
 <div id="alert_placeholder_mod"></div>
 <script>
-    $("#createMod").submit(function () {
-        $.ajax({
-            url: '/receive-teaches-mod',
-            type: 'post',
-            data: $('#createMod').serialize(),
-            success: function (result) {
-                if (result == "Query Completed Successfully") {
-                    $('#alert_placeholder_mod').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                    $('#teach').val('');
-                    $('#modToPair').val('');
-                } else {
-                    $('#alert_placeholder_mod').html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>JA JA JA JA</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                }
-            },
-            error: function (result) {
-                alert(result);
-            }
+    $(document).ready(function () {
+        $("#createMod").submit(function () {
+            return create_mod()
         });
-        return false;
     });
 </script>

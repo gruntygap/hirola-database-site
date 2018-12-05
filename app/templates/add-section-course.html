@@ -30,26 +30,9 @@
 </form>
 <div id="alert_placeholder_section"></div>
 <script>
-    $("#createSection").submit(function() {
-        $.ajax({
-            url:'/receive-section',
-            type:'post',
-            data: $('#createSection').serialize(),
-            success: function(result) {
-                if (result == "Query Completed Successfully") {
-                    $('#alert_placeholder_section').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> '+ result +'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                    $('#courseIDLookup').val('');
-                    $('#section').val('');
-                    $('#semester').val('');
-                    $('#year').val('');
-                } else {
-                    $('#alert_placeholder_section').html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>JA JA JA JA</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                }
-            },
-            error: function(result) {
-                alert(result);
-            }
+    $(document).ready(function () {
+        $("#createSection").submit(function () {
+            return create_section()
         });
-        return false;
     });
 </script>

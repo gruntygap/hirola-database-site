@@ -38,27 +38,9 @@
 <div id = "alert_placeholder_non_ins_load"></div>
 
 <script>
-    $("#createNonInsLoad").submit(function() {
-        $.ajax({
-            url:'/receive-non-ins-load',
-            type:'post',
-            data: $('#createNonInsLoad').serialize(),
-            success: function(result) {
-                if (result == "Query Completed Successfully") {
-                    $('#alert_placeholder_non_ins_load').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> '+ result +'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                    $('#instructorIDLookup').val('');
-                    $('#task').val('');
-                    $('#teu').val('');
-                    $('#semester').val('');
-                    $('#year').val('');
-                } else {
-                    $('#alert_placeholder_non_ins_load').html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>JA JA JA JA</strong> '+ result +'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                }
-            },
-            error: function(result) {
-                alert(result);
-            }
+    $(document).ready(function () {
+        $("#createNonInsLoad").submit(function () {
+            return create_noninsload()
         });
-        return false;
     });
 </script>

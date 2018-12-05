@@ -23,8 +23,9 @@ def function_page():
 	mods = database.get_mods()
 	instructors = database.get_instructor_table('part')
 	clusters = database.get_cluster_table()
+	sections = database.get_section_table()
 	teaches = database.get_teaches_table()
-	return render_template('input_functions.html', course_ids=course_ids, mods=mods, instructors=instructors, clusters=clusters, teaches=teaches)
+	return render_template('input_functions.html', course_ids=course_ids, mods=mods, instructors=instructors, clusters=clusters, teaches=teaches, sections=sections)
 
 @app.route('/time-warps')
 def time_warps():
@@ -72,7 +73,8 @@ def receive_restriction():
 @app.route("/receive-teaches", methods=['POST'])
 def recieve_teaches():
 	receive = request.values
-	return database.add_teaches(receive['instructorToPair'], receive['courseID'], receive['section'], receive['semester'], receive['year'])
+	section = json.loads(receive['section'])
+	return database.add_teaches(receive['instructorToPair'], section['course_id'], section['section'], section['semester'], section['year'])
 
 
 @app.route("/receive-teaches-mod", methods=['POST'])
@@ -94,3 +96,7 @@ def execute_phase():
 	response = json.dumps(response)
 	return response
 
+@app.route("/get_mod_selection", methods=['GET'])
+def get_assign_mod():
+	teaches = database.get_teaches_table()
+	return render_template("assign-mod-select.html", teaches=teaches)
