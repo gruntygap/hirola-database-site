@@ -14,7 +14,7 @@ def landing_page():
 	sections = database.get_section_table()
 	non_ins_load = database.get_non_instructional_load_table()
 	ins_time_restrict = database.get_instructor_time_restrictions_table()
-	return render_template('dashboard.html', courses=courses, instructors=instructors, teaches=teaches, sections=sections, clusters=clusters, non_ins_load=non_ins_load, ins_time_restrict=ins_time_restrict)
+	return render_template('dashboard.html', **locals())
 
 
 @app.route('/functions')
@@ -25,7 +25,7 @@ def function_page():
 	clusters = database.get_cluster_table()
 	sections = database.get_section_table()
 	teaches = database.get_teaches_table()
-	return render_template('input_functions.html', course_ids=course_ids, mods=mods, instructors=instructors, clusters=clusters, teaches=teaches, sections=sections)
+	return render_template('input_functions.html', **locals())
 
 @app.route('/time-warps')
 def time_warps():
@@ -108,7 +108,7 @@ def execute_phase():
 @app.route("/get_mod_selection", methods=['GET'])
 def get_assign_mod():
 	teaches = database.get_teaches_table()
-	return render_template("assign-mod-select.html", teaches=teaches)
+	return render_template("assign-mod-select.html", **locals())
 
 
 @app.route("/get-cluster-page", methods=['GET'])
