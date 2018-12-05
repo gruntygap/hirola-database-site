@@ -21,24 +21,9 @@
 </form>
 <div id="alert_placeholder_teaches"></div>
 <script>
-    $("#createTeaches").submit(function () {
-        $.ajax({
-            url: '/receive-teaches',
-            type: 'post',
-            data: $('#createTeaches').serialize(),
-            success: function (result) {
-                if (result == "Query Completed Successfully") {
-                    $('#alert_placeholder_teaches').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                    $('#section').val('');
-                    $('#instructorToPair').val('');
-                } else {
-                    $('#alert_placeholder_teaches').html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>JA JA JA JA</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                }
-            },
-            error: function (result) {
-                alert(result);
-            }
+    $(document).ready(function () {
+        $("#createTeaches").submit(function () {
+            return create_teaches()
         });
-        return false;
     });
 </script>

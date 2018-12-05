@@ -76,3 +76,160 @@ function create_mod() {
     });
     return false;
 }
+
+function create_teaches() {
+    $.ajax({
+        url: '/receive-teaches',
+        type: 'post',
+        data: $('#createTeaches').serialize(),
+        success: function (result) {
+            if (result == "Query Completed Successfully") {
+                $('#alert_placeholder_teaches').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                $('#section').val('');
+                $('#instructorToPair').val('');
+            } else {
+                $('#alert_placeholder_teaches').html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>JA JA JA JA</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+    return false;
+}
+
+function create_cluster() {
+    $.ajax({
+        url: '/receive-cluster',
+        type: 'post',
+        data: $('#createCluster').serialize(),
+        success: function (result) {
+            if (result == "Query Completed Successfully") {
+                $('#alert_placeholder_cluster').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                $('#courseIDLookup').val('');
+                $('#clusterID').val('');
+            } else {
+                $('#alert_placeholder_cluster').html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>JA JA JA JA</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+    return false;
+}
+
+function create_course() {
+    $.ajax({
+        url: '/receive-course',
+        type: 'post',
+        data: $('#createCourse').serialize(),
+        success: function (result) {
+            if (result == "Query Completed Successfully") {
+                $('#alert_placeholder_course').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                $('#courseID').val('');
+                $('#department').val('');
+                $('#credits').val('');
+                $('#title').val('');
+            } else {
+                $('#alert_placeholder_course').html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>JA JA JA JA</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+    return false;
+}
+
+function create_instructor() {
+    $.ajax({
+        url: '/receive-instructor',
+        type: 'post',
+        data: $('#createInstructor').serialize(),
+        success: function (result) {
+            if (result == "Query Completed Successfully") {
+                $('#alert_placeholder_instructor').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                $('#firstNameInput').val('');
+                $('#lastNameInput').val('');
+                $('#exampleInputEmail1').val('');
+                $('#id').val('');
+                $('#desiredLoadInput').val('');
+            } else {
+                $('#alert_placeholder_instructor').html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>JA JA JA JA</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+    return false;
+}
+
+function create_restriction() {
+    $.ajax({
+        url: '/receive-restriction',
+        type: 'post',
+        data: $('#createRestriction').serialize(),
+        success: function (result) {
+            if (result == "Query Completed Successfully") {
+                $('#alert_placeholder_restriction').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                $('#instructorToPair').val('');
+                $('#modToPair').val('');
+            } else {
+                $('#alert_placeholder_restriction').html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>JA JA JA JA</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+    return false;
+}
+
+function create_noninsload() {
+    $.ajax({
+        url: '/receive-non-ins-load',
+        type: 'post',
+        data: $('#createNonInsLoad').serialize(),
+        success: function (result) {
+            if (result == "Query Completed Successfully") {
+                $('#alert_placeholder_non_ins_load').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                $('#instructorIDLookup').val('');
+                $('#task').val('');
+                $('#teu').val('');
+                $('#semester').val('');
+                $('#year').val('');
+            } else {
+                $('#alert_placeholder_non_ins_load').html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>JA JA JA JA</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+    return false;
+}
+
+function create_section() {
+    $.ajax({
+        url: '/receive-section',
+        type: 'post',
+        data: $('#createSection').serialize(),
+        success: function (result) {
+            if (result == "Query Completed Successfully") {
+                $('#alert_placeholder_section').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                $('#courseIDLookup').val('');
+                $('#section').val('');
+                $('#semester').val('');
+                $('#year').val('');
+            } else {
+                $('#alert_placeholder_section').html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>JA JA JA JA</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+    return false;
+}

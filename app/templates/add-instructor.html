@@ -31,27 +31,9 @@
 </form>
 <div id = "alert_placeholder_instructor"></div>
 <script>
-    $("#createInstructor").submit(function() {
-        $.ajax({
-            url:'/receive-instructor',
-            type:'post',
-            data: $('#createInstructor').serialize(),
-            success: function(result) {
-                if (result == "Query Completed Successfully") {
-                    $('#alert_placeholder_instructor').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> '+ result +'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                    $('#firstNameInput').val('');
-                    $('#lastNameInput').val('');
-                    $('#exampleInputEmail1').val('');
-                    $('#id').val('');
-                    $('#desiredLoadInput').val('');
-                } else {
-                    $('#alert_placeholder_instructor').html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>JA JA JA JA</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                }
-            },
-            error: function(result) {
-                alert(result);
-            }
+    $(document).ready(function () {
+        $("#createInstructor").submit(function () {
+            return create_instructor()
         });
-        return false;
     });
 </script>
