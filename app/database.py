@@ -57,9 +57,14 @@ def add_teaches(instructor_id, course_id, section, semester, year):
 
 
 def update_teaches_mod(instructor_id, course_id, section, semester, year, mod):
-	return update_or_add_query(
-		"update teaches set mod_slot = '{}' where id = {} and course_id = '{}' and sec_id = {} and semester = '{}' and year = {};".format(
-			mod, instructor_id, course_id, section, semester, year))
+	if mod == "NULL":
+		return update_or_add_query(
+			"update teaches set mod_slot = {} where id = {} and course_id = '{}' and sec_id = {} and semester = '{}' and year = {};".format(
+				mod, instructor_id, course_id, section, semester, year))
+	else:
+		return update_or_add_query(
+			"update teaches set mod_slot = '{}' where id = {} and course_id = '{}' and sec_id = {} and semester = '{}' and year = {};".format(
+				mod, instructor_id, course_id, section, semester, year))
 
 
 def add_non_ins_load(instructor_id, task, teu, semester, year):
