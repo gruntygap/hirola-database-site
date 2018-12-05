@@ -19,6 +19,7 @@
     </div>
     <input type="submit" value="Assign MOD to Course" class="btn btn-primary"/>
 </form>
+<div id="render"></div>
 <div id="alert_placeholder_mod"></div>
 <script>
     $("#createMod").submit(function () {
@@ -29,6 +30,9 @@
             success: function (result) {
                 if (result == "Query Completed Successfully") {
                     $('#alert_placeholder_mod').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                    $.get("/get_mod_selection", function (data) {
+                        $('#teach').html(data);
+                    });
                     $('#teach').val('');
                     $('#modToPair').val('');
                 } else {
