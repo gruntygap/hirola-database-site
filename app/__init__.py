@@ -13,7 +13,8 @@ def landing_page():
 	teaches = database.get_teaches_table()
 	sections = database.get_section_table()
 	non_ins_load = database.get_non_instructional_load_table()
-	return render_template('dashboard.html', courses=courses, instructors=instructors, teaches=teaches, sections=sections, clusters=clusters, non_ins_load=non_ins_load)
+	ins_time_restrict = database.get_instructor_time_restrictions_table()
+	return render_template('dashboard.html', courses=courses, instructors=instructors, teaches=teaches, sections=sections, clusters=clusters, non_ins_load=non_ins_load, ins_time_restrict=ins_time_restrict)
 
 
 @app.route('/functions')
@@ -60,6 +61,12 @@ def receive_section():
 	receive = request.values
 	return database.add_section(receive['courseID'], receive['section'],
 		receive['semester'], receive['year'])
+
+
+@app.route("/receive-restriction", methods=['POST'])
+def receive_restriction():
+	receive = request.values
+	return database.add_time_restriction(receive['instructorToPair'], receive['modToPair'])
 
 
 @app.route("/receive-teaches", methods=['POST'])

@@ -1,0 +1,44 @@
+<form id="createRestriction" action="" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="instructorToPair">Instructor</label>
+        <select class="form-control" id="instructorToPair" name="instructorToPair">
+            {# Use jinja and a passed in dictionary / array of classes #}
+            {% for each in instructors %}
+                <option value="{{ each[2] }}">{{ each[1] }}, {{ each[0] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="modToPair">Mod</label>
+        <select class="form-control" id="modToPair" name="modToPair">
+            {# Use jinja and a passed in dictionary / array of classes #}
+            {% for each in mods %}
+                <option>{{ each[0] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <input type="submit" value="Add Instructor Time Restriction" class="btn btn-primary"/>
+</form>
+<div id="alert_placeholder_restriction"></div>
+<script>
+    $("#createRestriction").submit(function () {
+        $.ajax({
+            url: '/receive-restriction',
+            type: 'post',
+            data: $('#createRestriction').serialize(),
+            success: function (result) {
+                if (result == "Query Completed Successfully") {
+                    $('#alert_placeholder_restriction').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                    $('#instructorToPair').val('');
+                    $('#modToPair').val('');
+                } else {
+                    $('#alert_placeholder_restriction').html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>JA JA JA JA</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                }
+            },
+            error: function (result) {
+                alert(result);
+            }
+        });
+        return false;
+    });
+</script>

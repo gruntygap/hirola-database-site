@@ -76,6 +76,22 @@
         </div>
 
         <div class="card">
+            <div class="card-header" id="headingEight">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed collapse-title" type="button" data-toggle="collapse"
+                            data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                        Add Instructor Time Restriction
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordionExample">
+                <div class="card-body">
+                    {% include 'add-instructor-time-restriction.html' with context %}
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
             <div class="card-header" id="headingFour">
                 <h5 class="mb-0">
                     <button class="btn btn-link collapsed collapse-title" type="button" data-toggle="collapse"
