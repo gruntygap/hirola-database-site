@@ -1,30 +1,4 @@
 {% extends "header.html" %}
-{% block head %}
-    <style type="text/css">
-        #ad-revenue {
-            height: 10%;
-            background-color: beige;
-            position: sticky;
-            top: 0;
-            margin-top: 1rem;
-            border:1px solid black;
-        }
-
-        #mascot {
-            height: -webkit-fill-available;
-            animation: example;
-            animation-duration: 5s;
-            animation-direction: alternate;
-            animation-iteration-count: infinite;
-            animation-timing-function: linear;
-        }
-
-        @keyframes example {
-            from { padding-left: 0% }
-            to { padding-left: 90% }
-        }
-    </style>
-{% endblock %}
 {% block content %}
     <h1 id="titleOfPage">Dashboard:</h1>
     <div class="card">
@@ -198,7 +172,6 @@
     </table>
     <i>{{ teaches.__len__() }} Assigned Courses</i>
     <a class="btn btn-primary" href="/functions">Associate Course with Instructor</a>
-
     <hr>
     <h3 id="non-instructional-load">Non-Instructional Load</h3>
     <table class="table">

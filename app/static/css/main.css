@@ -1,0 +1,141 @@
+#titleOfPage {
+    background-color: #ffffffcf;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 0px 0px 5px 5px;
+}
+
+.rainbow {
+    background-color: red;
+    animation: rainbow 10s linear;
+    animation-iteration-count: infinite;
+}
+
+.card {
+    margin: 10px;
+}
+
+@keyframes rainbow {
+    100%,
+    0% {
+        background-color: rgb(255, 0, 0);
+    }
+
+    8% {
+        background-color: rgb(255, 127, 0);
+    }
+
+    16% {
+        background-color: rgb(255, 255, 0);
+    }
+
+    25% {
+        background-color: rgb(127, 255, 0);
+    }
+
+    33% {
+        background-color: rgb(0, 255, 0);
+    }
+
+    41% {
+        background-color: rgb(0, 255, 127);
+    }
+
+    50% {
+        background-color: rgb(0, 255, 255);
+    }
+
+    58% {
+        background-color: rgb(0, 127, 255);
+    }
+
+    66% {
+        background-color: rgb(0, 0, 255);
+    }
+
+    75% {
+        background-color: rgb(127, 0, 255);
+    }
+
+    83% {
+        background-color: rgb(255, 0, 255);
+    }
+
+    91% {
+        background-color: rgb(255, 0, 127);
+    }
+}
+
+.collapse-title {
+    font-size: xx-large;
+}
+
+#loader {
+    width: 50%;
+    z-index: 1050;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    display: none;
+    margin-top: -50px;
+    margin-left: -100px;
+    animation-name: spin;
+    animation-duration: 4000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+#loader2 {
+    width: 50%;
+    z-index: 1050;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -100px;
+    animation-name: spin;
+    animation-duration: 8000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+        width: 50%;
+    }
+    50% {
+        width: 75%;
+    }
+    to {
+        transform: rotate(360deg);
+        width: 50%;
+    }
+}
+
+#ad-revenue {
+    height: 10%;
+    background-color: beige;
+    position: sticky;
+    top: 0;
+    margin-top: 1rem;
+    border: 1px solid black;
+}
+
+#mascot {
+    height: -webkit-fill-available;
+    animation: example;
+    animation-duration: 5s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes example {
+    from {
+        padding-left: 0%
+    }
+    to {
+        padding-left: 90%
+    }
+}

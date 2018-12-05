@@ -1,108 +1,10 @@
 {% extends "header.html" %}
-{% block head %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <style type="text/css">
-        .navbar {
-            background-color: red;
-            animation: example 10s linear;
-            animation-iteration-count: infinite;
-        }
-
-        .card {
-            margin: 10px;
-        }
-
-        @keyframes example {
-            100%,
-            0% {
-                background-color: rgb(255, 0, 0);
-            }
-
-            8% {
-                background-color: rgb(255, 127, 0);
-            }
-
-            16% {
-                background-color: rgb(255, 255, 0);
-            }
-
-            25% {
-                background-color: rgb(127, 255, 0);
-            }
-
-            33% {
-                background-color: rgb(0, 255, 0);
-            }
-
-            41% {
-                background-color: rgb(0, 255, 127);
-            }
-
-            50% {
-                background-color: rgb(0, 255, 255);
-            }
-
-            58% {
-                background-color: rgb(0, 127, 255);
-            }
-
-            66% {
-                background-color: rgb(0, 0, 255);
-            }
-
-            75% {
-                background-color: rgb(127, 0, 255);
-            }
-
-            83% {
-                background-color: rgb(255, 0, 255);
-            }
-
-            91% {
-                background-color: rgb(255, 0, 127);
-            }
-        }
-
-        .collapse-title {
-            font-size: xx-large;
-        }
-
-        #loader {
-            width: 50%;
-            z-index: 1050;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            display: none;
-            margin-top: -50px;
-            margin-left: -100px;
-            animation-name: spin;
-            animation-duration: 4000ms;
-            animation-iteration-count: infinite;
-            animation-timing-function: linear;
-        }
-        #loader2 {
-            width: 50%;
-            z-index: 1050;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            margin-top: -50px;
-            margin-left: -100px;
-            animation-name: spin;
-            animation-duration: 8000ms;
-            animation-iteration-count: infinite;
-            animation-timing-function: linear;
-        }
-
-        @keyframes spin {
-            from {transform: rotate(0deg); width: 50%;}
-            50% {width: 75%;}
-            to {transform: rotate(360deg); width: 50%;}
-        }
-    </style>
-{% endblock %}
 {% block content %}
+    <script>
+        $(document).ready(function () {
+            $(".navbar").addClass("rainbow");
+        });
+    </script>
     <div class="modal" id="exampleModal" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -116,14 +18,16 @@
                     <p>ARE YOU SURE ABOUT THAT??</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="deny" data-dismiss="modal">Nuns on ripple</button>
+                    <button type="button" class="btn btn-secondary" id="deny" data-dismiss="modal">Nuns on ripple
+                    </button>
                     <button type="button" class="btn btn-primary" id="confirm">Yank train</button>
                 </div>
             </div>
         </div>
     </div>
     <h1 id="titleOfPage">Time-warps</h1>
-    <div id="loader"><h3>Loading...</h3><img id="loader2" src="{{ url_for('static', filename='hirola-wo-white.png') }}" /></div>
+    <div id="loader"><h3>Loading...</h3><img id="loader2"
+                                             src="{{ url_for('static', filename='hirola-wo-white.png') }}"/></div>
     <div id="alert_placeholder"></div>
     <div class="row justify-content-center">
         <div class="card col-md-5">
@@ -183,60 +87,4 @@
             </div>
         </div>
     </div>
-    <script>
-        function passToModal(element) {
-            // To remove the click handler, if they click on multiple phases, otherwise they run `n` times
-            $("#confirm").unbind("click");
-            const confirmB = document.getElementById("confirm");
-            confirmB.innerHTML = "Yank train, Phase " + element.getAttribute('data-id');
-            $("#confirm").click(function (e) {
-                e.preventDefault();
-                const loaderTransitionTime = document.querySelector("#loader");
-                const loader2TransitionTime = document.querySelector("#loader2");
-                let duration = Math.random() * 8000;
-                loaderTransitionTime.style.setProperty("animation-duration", duration + "ms");
-                loader2TransitionTime.style.setProperty("animation-duration", duration + "ms");
-                $('#loader').show();
-                $("#confirm").attr("disabled",true);
-                $("#deny").attr("disabled",true);
-                $.ajax({
-                    type: "POST",
-                    url: "/run_phase",
-                    data: {
-                        id: element.getAttribute('data-id'),
-                    },
-                    success: function (result) {
-                        // Parse the result array
-                        result = JSON.parse(result);
-                        let errors = [];
-                        for(let i = 0; i < result.length; i++){
-                            if (result[i] == "Queries Completed Successfully") {
-                                // Do nothing
-                            } else {
-                                errors.push(result[i]);
-                            }
-                        }
-                        $('#loader').hide();
-                        if (errors.length == 0) {
-                            $('#alert_placeholder').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + "Queries Completed Successfully" + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                        } else {
-                            let errors_string = "";
-                            console.log(errors_string);
-                            for (let i = 0; i < errors.length; i++){
-                                errors_string = errors_string + ('<div>' + errors[i] +'</div><hr>');
-                            }
-                            $('#alert_placeholder').html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>JA JA JA</strong> ' + errors_string + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                        }
-                        $("#confirm").attr("disabled",false);
-                        $("#deny").attr("disabled",false);
-                        $("#exampleModal .close").click();
-                    },
-                    error: function (result) {
-                        $('#alert_placeholder').html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>JA JA JA</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                        $("#exampleModal .close").click();
-                    }
-                });
-            });
-        }
-    </script>
 {% endblock %}
