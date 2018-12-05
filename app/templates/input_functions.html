@@ -71,13 +71,13 @@
             <div class="card-header" id="headingEight">
                 <h5 class="mb-0">
                     <button class="btn btn-link collapsed collapse-title" type="button" data-toggle="collapse"
-                            data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                            data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight" onclick="reloadPage('add-time-restrictions', '/get-time-restrictions')">
                         Add Instructor Time Restriction
                     </button>
                 </h5>
             </div>
             <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordionExample">
-                <div class="card-body">
+                <div class="card-body" id="add-time-restrictions">
                     {% include 'add-instructor-time-restriction.html' with context %}
                 </div>
             </div>
@@ -87,13 +87,13 @@
             <div class="card-header" id="headingFour">
                 <h5 class="mb-0">
                     <button class="btn btn-link collapsed collapse-title" type="button" data-toggle="collapse"
-                            data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" onclick="reloadPage('assign-course-instructor', '/get-assign-course-instructor')">
                         Assign Course to Instructor
                     </button>
                 </h5>
             </div>
             <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
-                <div class="card-body">
+                <div class="card-body" id="assign-course-instructor">
                     {% include 'assign-course-instructor.html' with context %}
                 </div>
             </div>
@@ -103,13 +103,13 @@
             <div class="card-header" id="headingFive">
                 <h5 class="mb-0">
                     <button class="btn btn-link collapsed collapse-title" type="button" data-toggle="collapse"
-                            data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive" onclick="reloadPage('assign-assigned-section', '/get-assign-mod')">
                         Assign Assigned Section a Mod
                     </button>
                 </h5>
             </div>
             <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
-                <div class="card-body">
+                <div class="card-body" id="assign-assigned-section">
                     {% include 'assign-mod.html' with context %}
                 </div>
             </div>
@@ -119,13 +119,13 @@
             <div class="card-header" id="headingSeven">
                 <h5 class="mb-0">
                     <button class="btn btn-link collapsed collapse-title" type="button" data-toggle="collapse"
-                            data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                            data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven" onclick="reloadPage('add-non-instructional','/get-non-instructional')">
                         Add Non-Instructional Load
                     </button>
                 </h5>
             </div>
             <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
-                <div class="card-body">
+                <div class="card-body" id="add-non-instructional">
                     {% include 'add-non-instructional-load.html' with context %}
                 </div>
             </div>

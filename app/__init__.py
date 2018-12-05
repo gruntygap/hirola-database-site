@@ -122,3 +122,30 @@ def get_cluster_page():
 def get_section_page():
 	course_ids = database.get_course_ids()
 	return render_template("add-section-course.html", **locals())
+
+
+@app.route("/get-time-restrictions", methods=['GET'])
+def get_time_restrictions():
+	mods = database.get_mods()
+	instructors = database.get_instructor_table('part')
+	return render_template("add-instructor-time-restriction.html", **locals())
+
+
+@app.route("/get-assign-course-instructor", methods=['GET'])
+def get_assign_course_instructor():
+	sections = database.get_section_table()
+	instructors = database.get_instructor_table('part')
+	return render_template("assign-course-instructor.html", **locals())
+
+
+@app.route("/get-assign-mod", methods=['GET'])
+def get_mod_component():
+	mods = database.get_mods()
+	teaches = database.get_teaches_table()
+	return render_template("assign-mod.html", **locals())
+
+
+@app.route("/get-non-instructional", methods=['GET'])
+def get_non_instructional():
+	instructors = database.get_instructor_table('part')
+	return render_template("add-non-instructional-load.html", **locals())
