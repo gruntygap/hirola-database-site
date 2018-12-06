@@ -31,6 +31,11 @@ def function_page():
 	return render_template('input_functions.html', **locals())
 
 
+@app.route('/reports')
+def reports_page():
+	return render_template('reports.html')
+
+
 @app.route('/time-warps')
 def time_warps():
 	return render_template('time_warps.html')
