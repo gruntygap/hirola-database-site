@@ -27,6 +27,7 @@ def function_page():
 	teaches = database.get_teaches_table()
 	return render_template('input_functions.html', **locals())
 
+
 @app.route('/time-warps')
 def time_warps():
 	return render_template('time_warps.html')
@@ -73,6 +74,14 @@ def receive_section():
 		receive['semester'], receive['year'])
 
 
+@app.route("/remove-section/<course_id>/<section_id>/<semester>/<year>", methods=['GET'])
+def remove_section(course_id, section_id, semester, year):
+	database.remove_section(course_id, section_id, semester, year)
+	course_ids = database.get_course_ids()
+	sections = database.get_section_table()
+	return render_template('add-section-course.html', **locals())
+
+
 @app.route("/receive-restriction", methods=['POST'])
 def receive_restriction():
 	receive = request.values
@@ -105,6 +114,7 @@ def execute_phase():
 	response = json.dumps(response)
 	return response
 
+
 @app.route("/get_mod_selection", methods=['GET'])
 def get_assign_mod():
 	teaches = database.get_teaches_table()
@@ -121,6 +131,7 @@ def get_cluster_page():
 @app.route("/get-section-page", methods=['GET'])
 def get_section_page():
 	course_ids = database.get_course_ids()
+	sections = database.get_section_table()
 	return render_template("add-section-course.html", **locals())
 
 

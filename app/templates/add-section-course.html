@@ -1,3 +1,4 @@
+<h3>Add Section</h3>
 <form id="createSection" action="" enctype="multipart/form-data">
     <div class="form-group">
         <label for="courseIDLookup">Course ID</label>
@@ -29,6 +30,28 @@
     <input type="submit" value="Add Section" class="btn btn-primary"/>
 </form>
 <div id="alert_placeholder_section"></div>
+<h3>Remove Existing Section</h3>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Course ID</th>
+            <th>Section ID</th>
+            <th>Semester</th>
+            <th>Year</th>
+            <th>Remove From Sections</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for each in sections %}
+        <tr>
+            {% for item in each %}
+                <td>{{ item }}</td>
+            {% endfor %}
+            <td><a class="btn btn-danger" onclick="reloadPage('add-section-course', '/remove-section/{{ each[0] }}/{{ each[1] }}/{{ each[2] }}/{{ each[3] }}')">Remove</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
 <script>
     $(document).ready(function () {
         $("#createSection").submit(function () {

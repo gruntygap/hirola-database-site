@@ -61,9 +61,7 @@ function create_mod() {
         success: function (result) {
             if (result == "Query Completed Successfully") {
                 $('#alert_placeholder_mod').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                $.get("/get_mod_selection", function (data) {
-                    $('#teach').html(data);
-                });
+                reloadPage('teach','/get_mod_selection');
                 $('#teach').val('');
                 $('#modToPair').val('');
             } else {
@@ -105,7 +103,7 @@ function create_cluster() {
         data: $('#createCluster').serialize(),
         success: function (result) {
             if (result == "Query Completed Successfully") {
-                reloadPage('add-cluster', '/add-cluster');
+                reloadPage('add-cluster', '/add-cluster', false);
                 $('#alert_placeholder_cluster').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 $('#courseIDLookup').val('');
                 $('#clusterID').val('');
@@ -219,6 +217,7 @@ function create_section() {
         data: $('#createSection').serialize(),
         success: function (result) {
             if (result == "Query Completed Successfully") {
+                reloadPage('add-section-course', '/get-section-page', false);
                 $('#alert_placeholder_section').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 $('#courseIDLookup').val('');
                 $('#section').val('');
@@ -235,8 +234,28 @@ function create_section() {
     return false;
 }
 
-function reloadPage(id, url) {
-    $.get(url, function (data) {
-        $('#' + id).html(data);
-    });
+function reloadPage(id, url, async = true) {
+    if (async) {
+        $.ajax({
+            url: url,
+            type: 'GET',
+            cache: false,
+            async: true,
+            timeout: 30000,
+            success: function (result) {
+                $('#' + id).html(result);
+            }
+        });
+    } else {
+        $.ajax({
+            url: url,
+            type: 'GET',
+            cache: false,
+            async: false,
+            timeout: 30000,
+            success: function (result) {
+                $('#' + id).html(result);
+            }
+        });
+    }
 }

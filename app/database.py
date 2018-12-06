@@ -36,6 +36,10 @@ def remove_cluster(course_id, cluster_id):
 		"DELETE from likely_course_conflicts where course_id = '{}' and cluster_id = {};".format(course_id, cluster_id))
 
 
+def remove_section(course_id, section_id, semester, year):
+	return update_or_add_query(
+		"DELETE from section where course_id = '{}' and sec_id = {} and semester = '{}' and year = {};".format(course_id, section_id, semester, year))
+
 def add_instructor(first, last, email, id, load):
 	return update_or_add_query(
 		"INSERT into instructor values ('{}', '{}', '{}', {}, {});".format(first, last, email, id, load))
