@@ -64,6 +64,11 @@ def add_teaches(instructor_id, course_id, section, semester, year):
 																		   year))
 
 
+def remove_teaches(id, course_id, section, semester, year):
+	return update_or_add_query(
+		"DELETE from teaches where id = {} and course_id = '{}' and sec_id = {} and semester = '{}' and year = {};".format(id, course_id, section, semester, year))
+
+
 def update_teaches_mod(instructor_id, course_id, section, semester, year, mod):
 	if mod == "NULL":
 		return update_or_add_query(
@@ -125,8 +130,11 @@ def get_teaches_table():
 	return get_query("select * from teaches;")
 
 
-def get_section_table():
-	return get_query("select * from section;")
+def get_section_table(custom=None):
+	if custom is None:
+		return get_query("select * from section;")
+	else:
+		return get_query(custom)
 
 
 def get_non_instructional_load_table():

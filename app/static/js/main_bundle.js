@@ -82,12 +82,28 @@ function create_teaches() {
         data: $('#createTeaches').serialize(),
         success: function (result) {
             if (result == "Query Completed Successfully") {
+                reloadPage('assign-course-instructor', '/get-assign-course-instructor', false);
                 $('#alert_placeholder_teaches').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 $('#section').val('');
                 $('#instructorToPair').val('');
             } else {
                 $('#alert_placeholder_teaches').html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>JA JA JA JA</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+    return false;
+}
+
+function remove_teaches() {
+    $.ajax({
+        url: '/remove-teaches',
+        type: 'post',
+        data: $('#removeTeaches').serialize(),
+        success: function (result) {
+            $('#assign-course-instructor').html(result);
         },
         error: function (result) {
             alert(result);

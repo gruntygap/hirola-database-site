@@ -97,6 +97,14 @@ def recieve_teaches():
 	return database.add_teaches(receive['instructorToPair'], section['course_id'], section['section'], section['semester'], section['year'])
 
 
+@app.route("/remove-teaches", methods=['POST'])
+def remove_teaches():
+	receive = request.values
+	taught = json.loads(receive['taught'])
+	database.remove_teaches(taught['id'], taught['course_id'], taught['section'], taught['semester'], taught['year'])
+	return get_assign_course_instructor()
+
+
 @app.route("/receive-teaches-mod", methods=['POST'])
 def recieve_teaches_mod():
 	receive = request.values
@@ -153,8 +161,9 @@ def get_time_restrictions():
 
 @app.route("/get-assign-course-instructor", methods=['GET'])
 def get_assign_course_instructor():
-	sections = database.get_section_table()
+	sections = database.get_section_table("select * from section natural left join teaches where id is NULL;")
 	instructors = database.get_instructor_table('part')
+	teaches = database.get_teaches_table()
 	return render_template("assign-course-instructor.html", **locals())
 
 

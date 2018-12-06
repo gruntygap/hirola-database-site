@@ -1,6 +1,7 @@
+<h3>Assign Course to Instructor</h3>
 <form id="createTeaches" action="" enctype="multipart/form-data">
     <div class="form-group">
-        <label for="section">Section Entry</label>
+        <label for="section">Section Entry Without Instructor</label>
         <select class="form-control" id="section" name="section" size="10">
             {% for each in sections %}
                 <option value='{"course_id":"{{ each[0] }}","section":"{{ each[1] }}","semester":"{{ each[2] }}","year":"{{ each[3] }}"}'>{{ each[0] }}
@@ -20,10 +21,26 @@
     <input type="submit" value="Assign Course to Instructor" class="btn btn-primary"/>
 </form>
 <div id="alert_placeholder_teaches"></div>
+<h3>Dissociate Course from Instructor</h3>
+<form id="removeTeaches" action="" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="section">Teaches Entry</label>
+        <select class="form-control" id="taught" name="taught" size="10">
+            {% for each in teaches %}
+                <option value='{"id":"{{ each[0] }}","course_id":"{{ each[1] }}","section":"{{ each[2] }}","semester":"{{ each[3] }}","year":"{{ each[4] }}"}'>{{ each[0] }}
+                    -- {{ each[1] }} -- {{ each[2] }} -- {{ each[3] }} -- {{ each[4] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <input type="submit" value="Dissociate Course from Instructor" class="btn btn-danger"/>
+</form>
 <script>
     $(document).ready(function () {
         $("#createTeaches").submit(function () {
             return create_teaches()
+        });
+        $("#removeTeaches").submit(function () {
+            return remove_teaches()
         });
     });
 </script>
