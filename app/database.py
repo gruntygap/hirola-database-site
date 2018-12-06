@@ -151,8 +151,8 @@ def get_courses_and_instructors_report():
 	return get_query("select * from teaches natural join course natural join instructor order by instructor.last_name, instructor.first_name, course.department;")
 
 
-# def get_unassigned_courses():
-# 	return get_query("")
+def get_unassigned_courses():
+	return get_query("select * from section A where not exists (select * from teaches B where A.course_id = B.course_id and A.sec_id = B.sec_id and A.semester = B.semester and A.year = B.year);")
 
 
 def run_phase(num):

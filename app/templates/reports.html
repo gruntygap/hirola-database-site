@@ -57,13 +57,13 @@
         </tr>
         </thead>
         <tbody>
-            {% for each in unassigned_courses %}
+            {% for each in sections_without %}
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><a class="btn btn-primary" href="#">Fix</a></td>
+                    <td>{{ each[8] }} ({{ each[0] }})</td>
+                    <td>{{ each[1] }}</td>
+                    <td>{{ each[2] }}</td>
+                    <td>{{ each[3] }}</td>
+                    <td><a class="btn btn-primary" href="/functions#headingFourOpen">Fix</a></td>
                 </tr>
             {% endfor %}
         </tbody>

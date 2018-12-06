@@ -34,7 +34,7 @@ def function_page():
 @app.route('/reports')
 def reports_page():
 	courses_and_instructors = database.get_courses_and_instructors_report()
-	unassigned_courses = database.get_unassigned_courses()
+	sections_without = database.get_section_table("select * from section natural left join teaches natural join course where id is NULL;")
 	return render_template('reports.html', **locals())
 
 
