@@ -11,11 +11,11 @@
     <div class="form-group">
         <label for="modToPair">Mod</label>
         <select class="form-control" id="modToPair" name="modToPair">
+            <option value="NULL">None</option>
             {# Use jinja and a passed in dictionary / array of classes #}
             {% for each in mods %}
                 <option>{{ each[0] }}</option>
             {% endfor %}
-            <option value="NULL">none</option>
         </select>
     </div>
     <input type="submit" value="Assign MOD to Course" class="btn btn-primary"/>
