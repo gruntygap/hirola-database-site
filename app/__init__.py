@@ -33,7 +33,9 @@ def function_page():
 
 @app.route('/reports')
 def reports_page():
-	return render_template('reports.html')
+	courses_and_instructors = database.get_courses_and_instructors_report()
+	unassigned_courses = database.get_unassigned_courses()
+	return render_template('reports.html', **locals())
 
 
 @app.route('/time-warps')
