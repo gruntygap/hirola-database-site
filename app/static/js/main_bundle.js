@@ -61,7 +61,7 @@ function create_mod() {
         success: function (result) {
             if (result == "Query Completed Successfully") {
                 $('#alert_placeholder_mod').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                reloadPage('teach','/get_mod_selection');
+                reloadPage('teach', '/get_mod_selection');
                 $('#teach').val('');
                 $('#modToPair').val('');
             } else {
@@ -172,6 +172,7 @@ function create_restriction() {
         data: $('#createRestriction').serialize(),
         success: function (result) {
             if (result == "Query Completed Successfully") {
+                reloadPage('add-time-restrictions', '/get-time-restrictions', false);
                 $('#alert_placeholder_restriction').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 $('#instructorToPair').val('');
                 $('#modToPair').val('');
@@ -236,15 +237,8 @@ function create_section() {
 
 function reloadPage(id, url, async = true) {
     if (async) {
-        $.ajax({
-            url: url,
-            type: 'GET',
-            cache: false,
-            async: true,
-            timeout: 30000,
-            success: function (result) {
-                $('#' + id).html(result);
-            }
+        $.get(url, function (data) {
+            $('#' + id).html(data);
         });
     } else {
         $.ajax({

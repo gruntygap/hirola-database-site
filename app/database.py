@@ -54,6 +54,10 @@ def add_time_restriction(instructor_id, mod):
 	return update_or_add_query("INSERT into instructor_time_restrictions values ({}, '{}');".format(instructor_id, mod))
 
 
+def remove_time_restriction(instructor_id, mod):
+	return update_or_add_query("DELETE from instructor_time_restrictions where id = {} and mod_slot = '{}';".format(instructor_id, mod))
+
+
 def add_teaches(instructor_id, course_id, section, semester, year):
 	return update_or_add_query(
 		"INSERT into teaches values({}, '{}', {}, '{}', {}, NULL);".format(instructor_id, course_id, section, semester,

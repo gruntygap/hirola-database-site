@@ -19,11 +19,13 @@ def landing_page():
 
 @app.route('/functions')
 def function_page():
+	# unneeded as each component loads on it's own
 	course_ids = database.get_course_ids()
 	mods = database.get_mods()
 	instructors = database.get_instructor_table('part')
 	clusters = database.get_cluster_table()
 	sections = database.get_section_table()
+	non_ins_load = database.get_non_instructional_load_table()
 	teaches = database.get_teaches_table()
 	return render_template('input_functions.html', **locals())
 
@@ -108,6 +110,12 @@ def recieve_non_ins_load():
 	return database.add_non_ins_load(receive['instructorID'], receive['task'], receive['teu'], receive['semester'], receive['year'])
 
 
+@app.route("/remove-time-restrict/<instructor_id>/<mod>", methods=['GET'])
+def remove_time_restrictions(instructor_id, mod):
+	database.remove_time_restriction(instructor_id, mod)
+	return get_time_restrictions()
+
+
 @app.route("/run_phase", methods=['POST'])
 def execute_phase():
 	response = database.run_phase(int(request.values["id"]))
@@ -139,6 +147,7 @@ def get_section_page():
 def get_time_restrictions():
 	mods = database.get_mods()
 	instructors = database.get_instructor_table('part')
+	ins_time_restrict = database.get_instructor_time_restrictions_table()
 	return render_template("add-instructor-time-restriction.html", **locals())
 
 

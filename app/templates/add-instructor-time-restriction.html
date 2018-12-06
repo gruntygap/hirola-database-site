@@ -1,3 +1,4 @@
+<h3>Add Instructor Time Restriction</h3>
 <form id="createRestriction" action="" enctype="multipart/form-data">
     <div class="form-group">
         <label for="instructorToPair">Instructor</label>
@@ -20,6 +21,26 @@
     <input type="submit" value="Add Instructor Time Restriction" class="btn btn-primary"/>
 </form>
 <div id="alert_placeholder_restriction"></div>
+<h3>Remove Instructor Time Restriction</h3>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Instructor ID</th>
+            <th>Unavailable Mod</th>
+            <th>Remove Restriction</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for each in ins_time_restrict %}
+        <tr>
+            {% for item in each %}
+                <td>{{ item }}</td>
+            {% endfor %}
+            <td><a class="btn btn-danger" onclick="reloadPage('add-time-restrictions', '/remove-time-restrict/{{ each[0] }}/{{ each[1] }}')">Remove</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
 <script>
     $(document).ready(function () {
         $("#createRestriction").submit(function () {
