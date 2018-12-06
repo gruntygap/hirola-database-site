@@ -210,6 +210,7 @@ function create_noninsload() {
         data: $('#createNonInsLoad').serialize(),
         success: function (result) {
             if (result == "Query Completed Successfully") {
+                reloadPage('add-non-instructional','/get-non-instructional', false);
                 $('#alert_placeholder_non_ins_load').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 $('#instructorIDLookup').val('');
                 $('#task').val('');

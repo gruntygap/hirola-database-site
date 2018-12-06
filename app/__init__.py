@@ -177,4 +177,11 @@ def get_mod_component():
 @app.route("/get-non-instructional", methods=['GET'])
 def get_non_instructional():
 	instructors = database.get_instructor_table('part')
+	non_ins_load = database.get_non_instructional_load_table()
 	return render_template("add-non-instructional-load.html", **locals())
+
+
+@app.route("/remove-non-ins/<id>/<task>/<semester>/<year>", methods=['GET'])
+def remove_non_instructional(id, task, semester, year):
+	database.remove_non_instructional_load(id, task, semester, year)
+	return get_non_instructional()

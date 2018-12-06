@@ -141,6 +141,11 @@ def get_non_instructional_load_table():
 	return get_query("select * from non_instructional_load;")
 
 
+def remove_non_instructional_load(id, task, semester, year):
+	return update_or_add_query(
+		"DELETE from non_instructional_load where id = {} and task = '{}' and semester = '{}' and year = {};".format(id, task, semester, year))
+
+
 def run_phase(num):
 	path = ""
 	response_stack = []
