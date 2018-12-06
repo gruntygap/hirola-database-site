@@ -36,6 +36,10 @@ def remove_cluster(course_id, cluster_id):
 		"DELETE from likely_course_conflicts where course_id = '{}' and cluster_id = {};".format(course_id, cluster_id))
 
 
+def remove_section(course_id, section_id, semester, year):
+	return update_or_add_query(
+		"DELETE from section where course_id = '{}' and sec_id = {} and semester = '{}' and year = {};".format(course_id, section_id, semester, year))
+
 def add_instructor(first, last, email, id, load):
 	return update_or_add_query(
 		"INSERT into instructor values ('{}', '{}', '{}', {}, {});".format(first, last, email, id, load))
@@ -50,10 +54,19 @@ def add_time_restriction(instructor_id, mod):
 	return update_or_add_query("INSERT into instructor_time_restrictions values ({}, '{}');".format(instructor_id, mod))
 
 
+def remove_time_restriction(instructor_id, mod):
+	return update_or_add_query("DELETE from instructor_time_restrictions where id = {} and mod_slot = '{}';".format(instructor_id, mod))
+
+
 def add_teaches(instructor_id, course_id, section, semester, year):
 	return update_or_add_query(
 		"INSERT into teaches values({}, '{}', {}, '{}', {}, NULL);".format(instructor_id, course_id, section, semester,
 																		   year))
+
+
+def remove_teaches(id, course_id, section, semester, year):
+	return update_or_add_query(
+		"DELETE from teaches where id = {} and course_id = '{}' and sec_id = {} and semester = '{}' and year = {};".format(id, course_id, section, semester, year))
 
 
 def update_teaches_mod(instructor_id, course_id, section, semester, year, mod):
@@ -117,12 +130,20 @@ def get_teaches_table():
 	return get_query("select * from teaches;")
 
 
-def get_section_table():
-	return get_query("select * from section;")
+def get_section_table(custom=None):
+	if custom is None:
+		return get_query("select * from section;")
+	else:
+		return get_query(custom)
 
 
 def get_non_instructional_load_table():
 	return get_query("select * from non_instructional_load;")
+
+
+def remove_non_instructional_load(id, task, semester, year):
+	return update_or_add_query(
+		"DELETE from non_instructional_load where id = {} and task = '{}' and semester = '{}' and year = {};".format(id, task, semester, year))
 
 
 def run_phase(num):

@@ -14,18 +14,21 @@ def landing_page():
 	sections = database.get_section_table()
 	non_ins_load = database.get_non_instructional_load_table()
 	ins_time_restrict = database.get_instructor_time_restrictions_table()
-	return render_template('dashboard.html', courses=courses, instructors=instructors, teaches=teaches, sections=sections, clusters=clusters, non_ins_load=non_ins_load, ins_time_restrict=ins_time_restrict)
+	return render_template('dashboard.html', **locals())
 
 
 @app.route('/functions')
 def function_page():
+	# unneeded as each component loads on it's own
 	course_ids = database.get_course_ids()
 	mods = database.get_mods()
 	instructors = database.get_instructor_table('part')
 	clusters = database.get_cluster_table()
 	sections = database.get_section_table()
+	non_ins_load = database.get_non_instructional_load_table()
 	teaches = database.get_teaches_table()
-	return render_template('input_functions.html', course_ids=course_ids, mods=mods, instructors=instructors, clusters=clusters, teaches=teaches, sections=sections)
+	return render_template('input_functions.html', **locals())
+
 
 @app.route('/time-warps')
 def time_warps():
@@ -73,6 +76,14 @@ def receive_section():
 		receive['semester'], receive['year'])
 
 
+@app.route("/remove-section/<course_id>/<section_id>/<semester>/<year>", methods=['GET'])
+def remove_section(course_id, section_id, semester, year):
+	database.remove_section(course_id, section_id, semester, year)
+	course_ids = database.get_course_ids()
+	sections = database.get_section_table()
+	return render_template('add-section-course.html', **locals())
+
+
 @app.route("/receive-restriction", methods=['POST'])
 def receive_restriction():
 	receive = request.values
@@ -84,6 +95,14 @@ def recieve_teaches():
 	receive = request.values
 	section = json.loads(receive['section'])
 	return database.add_teaches(receive['instructorToPair'], section['course_id'], section['section'], section['semester'], section['year'])
+
+
+@app.route("/remove-teaches", methods=['POST'])
+def remove_teaches():
+	receive = request.values
+	taught = json.loads(receive['taught'])
+	database.remove_teaches(taught['id'], taught['course_id'], taught['section'], taught['semester'], taught['year'])
+	return get_assign_course_instructor()
 
 
 @app.route("/receive-teaches-mod", methods=['POST'])
@@ -99,16 +118,23 @@ def recieve_non_ins_load():
 	return database.add_non_ins_load(receive['instructorID'], receive['task'], receive['teu'], receive['semester'], receive['year'])
 
 
+@app.route("/remove-time-restrict/<instructor_id>/<mod>", methods=['GET'])
+def remove_time_restrictions(instructor_id, mod):
+	database.remove_time_restriction(instructor_id, mod)
+	return get_time_restrictions()
+
+
 @app.route("/run_phase", methods=['POST'])
 def execute_phase():
 	response = database.run_phase(int(request.values["id"]))
 	response = json.dumps(response)
 	return response
 
+
 @app.route("/get_mod_selection", methods=['GET'])
 def get_assign_mod():
 	teaches = database.get_teaches_table()
-	return render_template("assign-mod-select.html", teaches=teaches)
+	return render_template("assign-mod-select.html", **locals())
 
 
 @app.route("/get-cluster-page", methods=['GET'])
@@ -121,6 +147,7 @@ def get_cluster_page():
 @app.route("/get-section-page", methods=['GET'])
 def get_section_page():
 	course_ids = database.get_course_ids()
+	sections = database.get_section_table()
 	return render_template("add-section-course.html", **locals())
 
 
@@ -128,13 +155,15 @@ def get_section_page():
 def get_time_restrictions():
 	mods = database.get_mods()
 	instructors = database.get_instructor_table('part')
+	ins_time_restrict = database.get_instructor_time_restrictions_table()
 	return render_template("add-instructor-time-restriction.html", **locals())
 
 
 @app.route("/get-assign-course-instructor", methods=['GET'])
 def get_assign_course_instructor():
-	sections = database.get_section_table()
+	sections = database.get_section_table("select * from section natural left join teaches where id is NULL;")
 	instructors = database.get_instructor_table('part')
+	teaches = database.get_teaches_table()
 	return render_template("assign-course-instructor.html", **locals())
 
 
@@ -148,4 +177,11 @@ def get_mod_component():
 @app.route("/get-non-instructional", methods=['GET'])
 def get_non_instructional():
 	instructors = database.get_instructor_table('part')
+	non_ins_load = database.get_non_instructional_load_table()
 	return render_template("add-non-instructional-load.html", **locals())
+
+
+@app.route("/remove-non-ins/<id>/<task>/<semester>/<year>", methods=['GET'])
+def remove_non_instructional(id, task, semester, year):
+	database.remove_non_instructional_load(id, task, semester, year)
+	return get_non_instructional()

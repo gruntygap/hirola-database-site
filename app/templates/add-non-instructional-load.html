@@ -1,3 +1,4 @@
+<h3>Add Non-instructional Load</h3>
 <form id="createNonInsLoad" action="" enctype="multipart/form-data">
     <div class="form-group">
         <label for="instructorIDLookup">Instructor</label>
@@ -36,7 +37,29 @@
     <input type="submit" value="Add Non-Instructional Load" class="btn btn-primary" />
 </form>
 <div id = "alert_placeholder_non_ins_load"></div>
-
+<h3>Remove Non-instructional Load</h3>
+<table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>Instructor ID</th>
+            <th>Task</th>
+            <th>TEU Value</th>
+            <th>Semester</th>
+            <th>Year</th>
+            <th>Remove Non-Ins Load</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for each in non_ins_load %}
+            <tr>
+                {% for item in each %}
+                    <td>{{ item }}</td>
+                {% endfor %}
+            <td><a class="btn btn-danger" onclick="reloadPage('add-non-instructional', '/remove-non-ins/{{ each[0] }}/{{ each[1] }}/{{ each[3] }}/{{ each[4] }}')">Remove</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 <script>
     $(document).ready(function () {
         $("#createNonInsLoad").submit(function () {

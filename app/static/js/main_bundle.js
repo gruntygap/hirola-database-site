@@ -61,9 +61,7 @@ function create_mod() {
         success: function (result) {
             if (result == "Query Completed Successfully") {
                 $('#alert_placeholder_mod').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-                $.get("/get_mod_selection", function (data) {
-                    $('#teach').html(data);
-                });
+                reloadPage('teach', '/get_mod_selection');
                 $('#teach').val('');
                 $('#modToPair').val('');
             } else {
@@ -84,12 +82,28 @@ function create_teaches() {
         data: $('#createTeaches').serialize(),
         success: function (result) {
             if (result == "Query Completed Successfully") {
+                reloadPage('assign-course-instructor', '/get-assign-course-instructor', false);
                 $('#alert_placeholder_teaches').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 $('#section').val('');
                 $('#instructorToPair').val('');
             } else {
                 $('#alert_placeholder_teaches').html('<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>JA JA JA JA</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
             }
+        },
+        error: function (result) {
+            alert(result);
+        }
+    });
+    return false;
+}
+
+function remove_teaches() {
+    $.ajax({
+        url: '/remove-teaches',
+        type: 'post',
+        data: $('#removeTeaches').serialize(),
+        success: function (result) {
+            $('#assign-course-instructor').html(result);
         },
         error: function (result) {
             alert(result);
@@ -105,7 +119,7 @@ function create_cluster() {
         data: $('#createCluster').serialize(),
         success: function (result) {
             if (result == "Query Completed Successfully") {
-                reloadPage('add-cluster', '/add-cluster');
+                reloadPage('add-cluster', '/add-cluster', false);
                 $('#alert_placeholder_cluster').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 $('#courseIDLookup').val('');
                 $('#clusterID').val('');
@@ -174,6 +188,7 @@ function create_restriction() {
         data: $('#createRestriction').serialize(),
         success: function (result) {
             if (result == "Query Completed Successfully") {
+                reloadPage('add-time-restrictions', '/get-time-restrictions', false);
                 $('#alert_placeholder_restriction').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 $('#instructorToPair').val('');
                 $('#modToPair').val('');
@@ -195,6 +210,7 @@ function create_noninsload() {
         data: $('#createNonInsLoad').serialize(),
         success: function (result) {
             if (result == "Query Completed Successfully") {
+                reloadPage('add-non-instructional','/get-non-instructional', false);
                 $('#alert_placeholder_non_ins_load').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 $('#instructorIDLookup').val('');
                 $('#task').val('');
@@ -219,6 +235,7 @@ function create_section() {
         data: $('#createSection').serialize(),
         success: function (result) {
             if (result == "Query Completed Successfully") {
+                reloadPage('add-section-course', '/get-section-page', false);
                 $('#alert_placeholder_section').html('<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Holy guacamole!</strong> ' + result + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 $('#courseIDLookup').val('');
                 $('#section').val('');
@@ -235,8 +252,21 @@ function create_section() {
     return false;
 }
 
-function reloadPage(id, url) {
-    $.get(url, function (data) {
-        $('#' + id).html(data);
-    });
+function reloadPage(id, url, async = true) {
+    if (async) {
+        $.get(url, function (data) {
+            $('#' + id).html(data);
+        });
+    } else {
+        $.ajax({
+            url: url,
+            type: 'GET',
+            cache: false,
+            async: false,
+            timeout: 30000,
+            success: function (result) {
+                $('#' + id).html(result);
+            }
+        });
+    }
 }
