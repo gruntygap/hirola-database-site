@@ -3,7 +3,7 @@
     <div class="form-group">
         <label for="section">Section Entry Without Instructor</label>
         <select class="form-control" id="section" name="section" size="10">
-            {% for each in sections %}
+            {% for each in sections_without %}
                 <option value='{"course_id":"{{ each[0] }}","section":"{{ each[1] }}","semester":"{{ each[2] }}","year":"{{ each[3] }}"}'>{{ each[0] }}
                     -- {{ each[1] }} -- {{ each[2] }} -- {{ each[3] }}</option>
             {% endfor %}

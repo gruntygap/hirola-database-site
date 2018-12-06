@@ -25,6 +25,7 @@ def function_page():
 	instructors = database.get_instructor_table('part')
 	clusters = database.get_cluster_table()
 	sections = database.get_section_table()
+	sections_without = database.get_section_table("select * from section natural left join teaches where id is NULL;")
 	non_ins_load = database.get_non_instructional_load_table()
 	teaches = database.get_teaches_table()
 	return render_template('input_functions.html', **locals())
@@ -161,7 +162,7 @@ def get_time_restrictions():
 
 @app.route("/get-assign-course-instructor", methods=['GET'])
 def get_assign_course_instructor():
-	sections = database.get_section_table("select * from section natural left join teaches where id is NULL;")
+	sections_without = database.get_section_table("select * from section natural left join teaches where id is NULL;")
 	instructors = database.get_instructor_table('part')
 	teaches = database.get_teaches_table()
 	return render_template("assign-course-instructor.html", **locals())
