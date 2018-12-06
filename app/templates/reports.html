@@ -1,5 +1,169 @@
 {% extends "header.html" %}
 {% block content %}
+    <h1 id="titleOfPage">Reports:</h1>
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title"><h4>Quick-Jump Links</h4></div>
+            <div class="card-text">
+                <ul>
+                    <li><a href="#coursesAndInstructors">Courses and Instructors</a></li>
+                    <li><a href="#unassigned">Courses Not Assigned an Instructor</a></li>
+                    <li><a href="#load">Instructional Load (teu)</a></li>
+                    <li><a href="#timeless">Courses with No Mod</a></li>
+                    <li><a href="#courseTimes">Course Times</a></li>
+                    <li><a href="#instructorTimes">Instructor Teaching Times</a></li>
+                    <li><a href="#restrictions">Instructor Time Restriction Violations</a></li>
+                    <li><a href="#clusters">Course Cluster Violations</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+    <h3 id="coursesAndInstructors">Courses and Instructors</h3>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>Instructor</th>
+            <th>Course</th>
+            <th>Section</th>
+            <th>Semester</th>
+            <th>Year</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for each in courses_and_instructors %}
+                <tr>
+                    <td>{{ each[9] }} {{ each[10] }}</td>
+                    <td>{{ each[8] }} ({{ each[1] }})</td>
+                    <td>{{ each[2] }}</td>
+                    <td>{{ each[3] }}</td>
+                    <td>{{ each[4] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <hr>
+    <h3 id="unassigned">Courses Not Assigned an Instructor</h3>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>Course</th>
+            <th>Section</th>
+            <th>Semester</th>
+            <th>Year</th>
+            <th>Fix</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for each in sections_without %}
+                <tr>
+                    <td>{{ each[8] }} ({{ each[0] }})</td>
+                    <td>{{ each[1] }}</td>
+                    <td>{{ each[2] }}</td>
+                    <td>{{ each[3] }}</td>
+                    <td><a class="btn btn-primary" href="/functions#headingFourOpen">Fix</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <hr>
+    <h3 id="load">Instructor Load (teu)</h3>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>Instructor</th>
+            <th>Load (teu)</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <hr>
+    <h3 id="timeless">Courses with No Mod</h3>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>Course</th>
+            <th>Section</th>
+            <th>Semester</th>
+            <th>Year</th>
+            <th>Fix</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <hr>
+    <h3 id="courseTimes">Course Times</h3>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>Course</th>
+            <th>Section</th>
+            <th>Semester</th>
+            <th>Year</th>
+            <th>Mod</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <hr>
+    <h3 id="instructorTimes">Instructor Teaching Times</h3>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>Instructor</th>
+            <th>Semester</th>
+            <th>Year</th>
+            <th>Teaching Mods</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <hr>
+    <h3 id="restrictions">Instructor Time Restriction Violations</h3>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>Instructor</th>
+            <th>Mod Scheduled</th>
+            <th>Fix</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <hr>
+    <h3 id="clusters">Course Cluster Violations</h3>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>Course</th>
+            <th>Cluster</th>
+            <th>Mod</th>
+            <th>Fix</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
     <h1>Phase 3 Reports</h1>
     <ul>
         <li>Courses assigned to Instructors</li>
