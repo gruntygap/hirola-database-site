@@ -32,15 +32,15 @@
         </tr>
         </thead>
         <tbody>
-            {% for each in courses_and_instructors %}
-                <tr>
-                    <td>{{ each[9] }} {{ each[10] }}</td>
-                    <td>{{ each[8] }} ({{ each[1] }})</td>
-                    <td>{{ each[2] }}</td>
-                    <td>{{ each[3] }}</td>
-                    <td>{{ each[4] }}</td>
-                </tr>
-            {% endfor %}
+        {% for each in courses_and_instructors %}
+            <tr>
+                <td>{{ each[9] }} {{ each[10] }}</td>
+                <td>{{ each[8] }} ({{ each[1] }})</td>
+                <td>{{ each[2] }}</td>
+                <td>{{ each[3] }}</td>
+                <td>{{ each[4] }}</td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
 
@@ -57,15 +57,15 @@
         </tr>
         </thead>
         <tbody>
-            {% for each in sections_without %}
-                <tr>
-                    <td>{{ each[8] }} ({{ each[0] }})</td>
-                    <td>{{ each[1] }}</td>
-                    <td>{{ each[2] }}</td>
-                    <td>{{ each[3] }}</td>
-                    <td><a class="btn btn-primary" href="/functions#headingFourOpen">Fix</a></td>
-                </tr>
-            {% endfor %}
+        {% for each in sections_without %}
+            <tr>
+                <td>{{ each[8] }} ({{ each[0] }})</td>
+                <td>{{ each[1] }}</td>
+                <td>{{ each[2] }}</td>
+                <td>{{ each[3] }}</td>
+                <td><a class="btn btn-primary" href="/functions#headingFourOpen">Fix</a></td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
 
@@ -182,4 +182,27 @@
         <li>Any violations of instructor time restrictions</li>
         <li>Any courses from the same cluster scheduled for the same time</li>
     </ul>
+    <button class="btn btn-primary" id="start">These reports are acceptable</button>
+    <img id="loader2" src="{{ url_for('static', filename='hirola-wo-white.png') }}" style="display: none;"/>
+    <script>
+        $(document).ready(function (e) {
+            var audio = new Audio('https://upload.wikimedia.org/wikipedia/commons/d/db/Gimn_Sovetskogo_Soyuza_%281977_Vocal%29.oga');
+            $('#start').on('click', function () {
+                if ($(this).html() === 'These reports are acceptable') {
+                    $("#loader2").css("display", "block");
+                    $(this).html('Stop this Nonsense');
+                    $("body").css("transition", "background-color 10s");
+                    $("body").css("background-color", "red");
+                    audio.currentTime = 1.1;
+                    audio.play();
+                } else {
+                    $(this).html('These reports are acceptable');
+                    $("body").css("transition", "background-color 1s");
+                    $("#loader2").css("display", "none");
+                    audio.pause();
+                    $("body").css("background-color", "white");
+                }
+            });
+        });
+    </script>
 {% endblock %}
