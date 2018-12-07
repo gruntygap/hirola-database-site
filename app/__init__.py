@@ -35,6 +35,11 @@ def function_page():
 def reports_page():
 	courses_and_instructors = database.get_courses_and_instructors_report()
 	sections_without = database.get_section_table("select * from section natural left join teaches natural join course where id is NULL;")
+	unscheduled_courses = database.get_unscheduled_courses()
+	course_times = database.get_course_times()
+	instructor_times = database.get_instructor_times()
+	restriction_violations = database.get_ins_restriction_violations()
+	cluster_violations = database.get_cluster_violations()
 	return render_template('reports.html', **locals())
 
 

@@ -21,6 +21,7 @@
 
     <hr>
     <h3 id="coursesAndInstructors">Courses and Instructors</h3>
+    {% if courses_and_instructors %}
     <table class="table">
         <thead class="thead-dark">
         <tr>
@@ -43,9 +44,13 @@
         {% endfor %}
         </tbody>
     </table>
+    {% else %}
+    <h4>No courses or instructors.</h4>
+    {% endif %}
 
     <hr>
     <h3 id="unassigned">Courses Not Assigned an Instructor</h3>
+    {% if sections_without %}
     <table class="table">
         <thead class="thead-dark">
         <tr>
@@ -68,9 +73,13 @@
         {% endfor %}
         </tbody>
     </table>
+    {% else %}
+    <h4>All Courses have Instructors assigned.</h4>
+    {% endif %}
 
     <hr>
     <h3 id="load">Instructor Load (teu)</h3>
+    {% if instructor_loads %}
     <table class="table">
         <thead class="thead-dark">
         <tr>
@@ -82,12 +91,17 @@
 
         </tbody>
     </table>
+    {% else %}
+    <h4>There are no Instructor Loads.</h4>
+    {% endif %}
 
     <hr>
     <h3 id="timeless">Courses with No Mod</h3>
+    {% if unscheduled_courses %}
     <table class="table">
         <thead class="thead-dark">
         <tr>
+            <th>Instructor</th>
             <th>Course</th>
             <th>Section</th>
             <th>Semester</th>
@@ -96,12 +110,25 @@
         </tr>
         </thead>
         <tbody>
-
+            {% for each in unscheduled_courses %}
+                <tr>
+                    <td>{{ each[2] }} {{ each[3] }}</td>
+                    <td>{{ each[12] }} ({{ each[0] }})</td>
+                    <td>{{ each[6] }}</td>
+                    <td>{{ each[7] }}</td>
+                    <td>{{ each[8] }}</td>
+                    <td><a class="btn btn-primary" href="/functions#headingFiveOpen">Fix</a></td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
+    {% else %}
+    <h4>There are no unscheduled courses.</h4>
+    {% endif %}
 
     <hr>
     <h3 id="courseTimes">Course Times</h3>
+    {% if course_times %}
     <table class="table">
         <thead class="thead-dark">
         <tr>
@@ -113,12 +140,24 @@
         </tr>
         </thead>
         <tbody>
-
+            {% for each in course_times %}
+                <tr>
+                    <td>{{ each[4] }} ({{ each[1] }})</td>
+                    <td>{{ each[6] }}</td>
+                    <td>{{ each[7] }}</td>
+                    <td>{{ each[8] }}</td>
+                    <td>{{ each[0] }} ({{ each[9] }} - {{ each[10] }})</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
+    {% else %}
+    <h4>No Courses have scheduled times.</h4>
+    {% endif %}
 
     <hr>
     <h3 id="instructorTimes">Instructor Teaching Times</h3>
+    {% if instructor_times %}
     <table class="table">
         <thead class="thead-dark">
         <tr>
@@ -129,59 +168,86 @@
         </tr>
         </thead>
         <tbody>
-
+            {% for each in instructor_times %}
+                <tr>
+                    <td>{{ each[2] }} {{ each[3] }}</td>
+                    <td>{{ each[8] }}</td>
+                    <td>{{ each[9] }}</td>
+                    <td>{{ each[0] }} ({{ each[10] }} - {{ each[11] }})</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
+    {% else %}
+    <h4>No Instructors have scheduled times.</h4>
+    {% endif %}
 
     <hr>
     <h3 id="restrictions">Instructor Time Restriction Violations</h3>
+    {% if restriction_violations %}
     <table class="table">
         <thead class="thead-dark">
         <tr>
             <th>Instructor</th>
+            <th>Course in Violation</th>
+            <th>Section</th>
+            <th>Semester</th>
+            <th>Year</th>
             <th>Mod Scheduled</th>
             <th>Fix</th>
         </tr>
         </thead>
         <tbody>
-
+            {% for each in restriction_violations %}
+                <tr>
+                    <td>{{ each[9] }} {{ each[10] }}</td>
+                    <td>{{ each[8] }} ({{ each[2] }})</td>
+                    <td>{{ each[3] }}</td>
+                    <td>{{ each[4] }}</td>
+                    <td>{{ each[5] }}</td>
+                    <td>{{ each[1] }}</td>
+                    <td><a class="btn btn-primary" href="/functions#headingEightOpen">Fix</a></td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
+    {% else %}
+    <h4>No Instructor Time Restriction Violations.</h4>
+    {% endif %}
 
     <hr>
     <h3 id="clusters">Course Cluster Violations</h3>
+    {% if cluster_violations %}
     <table class="table">
         <thead class="thead-dark">
         <tr>
             <th>Course</th>
-            <th>Cluster</th>
+            <th>Section</th>
+            <th>Semester</th>
+            <th>Year</th>
+            <th>Cluster ID</th>
             <th>Mod</th>
             <th>Fix</th>
         </tr>
         </thead>
         <tbody>
-
+            {% for each in cluster_violations %}
+                <tr>
+                    <td>{{ each[8] }} ({{ each[0] }})</td>
+                    <td>{{ each[2] }}</td>
+                    <td>{{ each[3] }}</td>
+                    <td>{{ each[4] }}</td>
+                    <td>{{ each[9] }}</td>
+                    <td>{{ each[5] }}</td>
+                    <td><a class="btn btn-primary" href="/functions#headingSixOpen">Fix</a></td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
+    {% else %}
+    <h4>No Course Cluster Violations.</h4>
+    {% endif %}
 
-    <h1>Phase 3 Reports</h1>
-    <ul>
-        <li>Courses assigned to Instructors</li>
-        <li>Instructors assigned to Courses</li>
-        <li>Any Courses not assigned to an instructor</li>
-        <li>Any instructors not at their target load (low or high)</li>
-    </ul>
-    <h1>Phase 4 Reports</h1>
-    <ul>
-        <li>Inform user of courses not assigned a time</li>
-        <li>What time each course is at</li>
-        <li>What times each instructor is teaching</li>
-    </ul>
-    <h1>Additional Things to Report</h1>
-    <ul>
-        <li>Any violations of instructor time restrictions</li>
-        <li>Any courses from the same cluster scheduled for the same time</li>
-    </ul>
     <button class="btn btn-primary" id="start">These reports are acceptable</button>
     <img id="loader2" src="{{ url_for('static', filename='hirola-wo-white.png') }}" style="display: none;"/>
     <script>

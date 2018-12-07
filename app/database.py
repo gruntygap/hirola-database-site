@@ -148,11 +148,27 @@ def remove_non_instructional_load(id, task, semester, year):
 
 # Report Queries
 def get_courses_and_instructors_report():
-	return get_query("select * from teaches natural join course natural join instructor order by instructor.last_name, instructor.first_name, course.department;")
+	return get_query("select * from teaches natural join course natural join instructor order by teaches.year, case teaches.semester when 'Interim' then 1 when 'Spring' then 2 when 'Summer' then 3 when 'Fall' then 4 end, instructor.last_name, instructor.first_name, course.department, teaches.sec_id;")
 
 
-def get_unassigned_courses():
-	return get_query("select * from section A where not exists (select * from teaches B where A.course_id = B.course_id and A.sec_id = B.sec_id and A.semester = B.semester and A.year = B.year);")
+def get_unscheduled_courses():
+	return get_query("select * from instructor natural join teaches natural join course where mod_slot is NULL;")
+
+
+def get_course_times():
+	return get_query("select * from course natural join teaches natural join timeslot order by teaches.year, case teaches.semester when 'Interim' then 1 when 'Spring' then 2 when 'Summer' then 3 when 'Fall' then 4 end, course.course_id, teaches.sec_id;")
+
+
+def get_instructor_times():
+	return get_query("select * from instructor natural join teaches natural join timeslot order by teaches.year, case teaches.semester when 'Interim' then 1 when 'Spring' then 2 when 'Summer' then 3 when 'Fall' then 4 end, instructor.last_name, instructor.first_name;")
+
+
+def get_ins_restriction_violations():
+	return get_query("select * from teaches natural join course natural join instructor natural join instructor_time_restrictions;")
+
+
+def get_cluster_violations():
+	return get_query("select * from (select * from teaches natural join course natural join likely_course_conflicts) A, (select * from teaches natural join course natural join likely_course_conflicts) B where A.course_id <> B.course_id and A.mod_slot = B.mod_slot and A.cluster_id = B.cluster_id and A.semester = B.semester and A.year = B.year order by A.mod_slot;")
 
 
 def run_phase(num):
