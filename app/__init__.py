@@ -38,6 +38,7 @@ def reports_page():
 	unscheduled_courses = database.get_unscheduled_courses()
 	course_times = database.get_course_times()
 	instructor_times = database.get_instructor_times()
+	instructor_loads = database.get_teu_violations()
 	restriction_violations = database.get_ins_restriction_violations()
 	cluster_violations = database.get_cluster_violations()
 	return render_template('reports.html', **locals())

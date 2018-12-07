@@ -80,15 +80,33 @@
     <hr>
     <h3 id="load">Instructor Load (teu)</h3>
     {% if instructor_loads %}
+        <div id="warning-message">
+            <i><span style="background-color: red">Highlighted</span> entries signify an overage in TEU, Fix by removing Classes or Non-Instructional Load</i>
+        </div>
     <table class="table">
         <thead class="thead-dark">
         <tr>
-            <th>Instructor</th>
-            <th>Load (teu)</th>
+            <th>Instructor (ID)</th>
+            <th>Semester</th>
+            <th>Year</th>
+            <th>Actual Load (teu)</th>
+            <th>Desired Load</th>
         </tr>
         </thead>
         <tbody>
-
+        {% for each in instructor_loads %}
+            {% if each[5] > each[6] %}
+                <tr style="background-color: red">
+            {% else %}
+                <tr>
+            {% endif %}
+                <td>{{ each[1] }} {{ each[2] }}({{ each[0] }})</td>
+                <td>{{ each[3] }}</td>
+                <td>{{ each[4] }}</td>
+                <td>{{ each[5] }}</td>
+                <td>{{ each[6] }}</td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
     {% else %}
