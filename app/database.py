@@ -160,7 +160,7 @@ def get_course_times():
 
 
 def get_instructor_times():
-	return get_query("select * from instructor natural join teaches natural join timeslot order by teaches.year, case teaches.semester when 'Interim' then 1 when 'Spring' then 2 when 'Summer' then 3 when 'Fall' then 4 end, instructor.last_name, instructor.first_name;")
+	return get_query("select * from instructor natural join teaches natural join timeslot order by teaches.year, case teaches.semester when 'Interim' then 1 when 'Spring' then 2 when 'Summer' then 3 when 'Fall' then 4 end, instructor.last_name, instructor.first_name, timeslot.mod_slot;")
 
 
 def get_ins_restriction_violations():
@@ -168,7 +168,7 @@ def get_ins_restriction_violations():
 
 
 def get_cluster_violations():
-	return get_query("select * from (select * from teaches natural join course natural join likely_course_conflicts) A, (select * from teaches natural join course natural join likely_course_conflicts) B where A.course_id <> B.course_id and A.mod_slot = B.mod_slot and A.cluster_id = B.cluster_id and A.semester = B.semester and A.year = B.year order by A.mod_slot;")
+	return get_query("select * from (select * from teaches natural join course natural join likely_course_conflicts) A, (select * from teaches natural join course natural join likely_course_conflicts) B where A.course_id <> B.course_id and substr(A.mod_slot,1,1) = substr(B.mod_slot,1,1) and A.cluster_id = B.cluster_id and A.semester = B.semester and A.year = B.year order by A.cluster_id, A.mod_slot;")
 
 
 def get_teu_violations():
