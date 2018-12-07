@@ -171,6 +171,10 @@ def get_cluster_violations():
 	return get_query("select * from (select * from teaches natural join course natural join likely_course_conflicts) A, (select * from teaches natural join course natural join likely_course_conflicts) B where A.course_id <> B.course_id and A.mod_slot = B.mod_slot and A.cluster_id = B.cluster_id and A.semester = B.semester and A.year = B.year order by A.mod_slot;")
 
 
+def get_teu_violations():
+	return get_query("select id, first_name, last_name, semester, year, SUM(teu) as teu, desired_load from (select first_name, last_name, id, SUM(IF(num_credits = 3 OR num_credits = 4, 3.4, num_credits)) as teu, semester, year, desired_load from teaches natural join instructor natural join course group by id, year, semester union (select first_name, last_name, id, teu, semester, year, desired_load from non_instructional_load natural join instructor) order by id, year, semester) as wow group by id, year, semester;")
+
+
 def run_phase(num):
 	path = ""
 	response_stack = []
