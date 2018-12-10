@@ -128,9 +128,8 @@
         <tbody>
         {% for each in ins_time_restrict %}
             <tr>
-                {% for item in each %}
-                    <td>{{ item }}</td>
-                {% endfor %}
+                <td>{{ each[0] }} {{ each[1] }} ({{ each[2] }})</td>
+                <td>{{ each[3] }}</td>
             </tr>
         {% endfor %}
         </tbody>
