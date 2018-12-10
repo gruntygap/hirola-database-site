@@ -12,7 +12,7 @@ def landing_page():
 	instructors = database.get_instructor_table('all')
 	teaches = database.get_teaches_table()
 	sections = database.get_section_table()
-	non_ins_load = database.get_non_instructional_load_table()
+	non_ins_load = database.get_non_instructional_load_table("select id, task, teu, semester, year, first_name, last_name from non_instructional_load natural join instructor;")
 	ins_time_restrict = database.get_instructor_time_restrictions_table()
 	return render_template('dashboard.html', **locals())
 
@@ -26,8 +26,8 @@ def function_page():
 	clusters = database.get_cluster_table()
 	sections = database.get_section_table()
 	sections_without = database.get_section_table("select * from section natural left join teaches where id is NULL;")
-	non_ins_load = database.get_non_instructional_load_table()
-	teaches = database.get_teaches_table()
+	non_ins_load = database.get_non_instructional_load_table("select id, task, teu, semester, year, first_name, last_name from non_instructional_load natural join instructor;")
+	teaches = database.get_teaches_table("select id, course_id, sec_id, semester, year, mod_slot, first_name, last_name from teaches natural join instructor;")
 	return render_template('input_functions.html', **locals())
 
 
@@ -147,7 +147,7 @@ def execute_phase():
 
 @app.route("/get_mod_selection", methods=['GET'])
 def get_assign_mod():
-	teaches = database.get_teaches_table()
+	teaches = database.get_teaches_table("select id, course_id, sec_id, semester, year, mod_slot, first_name, last_name from teaches natural join instructor;")
 	return render_template("assign-mod-select.html", **locals())
 
 
@@ -177,21 +177,21 @@ def get_time_restrictions():
 def get_assign_course_instructor():
 	sections_without = database.get_section_table("select * from section natural left join teaches where id is NULL;")
 	instructors = database.get_instructor_table('part')
-	teaches = database.get_teaches_table()
+	teaches = database.get_teaches_table("select id, course_id, sec_id, semester, year, mod_slot, first_name, last_name from teaches natural join instructor;")
 	return render_template("assign-course-instructor.html", **locals())
 
 
 @app.route("/get-assign-mod", methods=['GET'])
 def get_mod_component():
 	mods = database.get_mods()
-	teaches = database.get_teaches_table()
+	teaches = database.get_teaches_table("select id, course_id, sec_id, semester, year, mod_slot, first_name, last_name from teaches natural join instructor;")
 	return render_template("assign-mod.html", **locals())
 
 
 @app.route("/get-non-instructional", methods=['GET'])
 def get_non_instructional():
 	instructors = database.get_instructor_table('part')
-	non_ins_load = database.get_non_instructional_load_table()
+	non_ins_load = database.get_non_instructional_load_table("select id, task, teu, semester, year, first_name, last_name from non_instructional_load natural join instructor;")
 	return render_template("add-non-instructional-load.html", **locals())
 
 

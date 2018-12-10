@@ -25,7 +25,7 @@
 <table class="table">
     <thead class="thead-dark">
         <tr>
-            <th>Instructor ID</th>
+            <th>Instructor (ID)</th>
             <th>Unavailable Mod</th>
             <th>Remove Restriction</th>
         </tr>
@@ -33,10 +33,9 @@
     <tbody>
     {% for each in ins_time_restrict %}
         <tr>
-            {% for item in each %}
-                <td>{{ item }}</td>
-            {% endfor %}
-            <td><a class="btn btn-danger" onclick="reloadPage('add-time-restrictions', '/remove-time-restrict/{{ each[0] }}/{{ each[1] }}')">Remove</a></td>
+            <td>{{ each[0] }} {{ each[1] }} ({{ each[2] }})</td>
+            <td>{{ each[3] }}</td>
+            <td><a class="btn btn-danger" onclick="reloadPage('add-time-restrictions', '/remove-time-restrict/{{ each[2] }}/{{ each[3] }}')">Remove</a></td>
         </tr>
     {% endfor %}
     </tbody>
