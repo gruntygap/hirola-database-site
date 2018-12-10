@@ -123,7 +123,7 @@ def get_mods():
 
 
 def get_instructor_time_restrictions_table():
-	return get_query("select * from instructor_time_restrictions")
+	return get_query("select first_name, last_name, id, mod_slot from instructor_time_restrictions natural join instructor;")
 
 
 def get_teaches_table():
