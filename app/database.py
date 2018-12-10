@@ -140,8 +140,12 @@ def get_section_table(custom=None):
 		return get_query(custom)
 
 
-def get_non_instructional_load_table():
-	return get_query("select * from non_instructional_load;")
+	
+def get_non_instructional_load_table(string=None):
+	execute = "select * from non_instructional_load;"
+	if string is not None:
+		execute = string
+	return get_query(execute)
 
 
 def remove_non_instructional_load(id, task, semester, year):

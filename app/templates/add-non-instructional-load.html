@@ -38,6 +38,7 @@
 </form>
 <div id = "alert_placeholder_non_ins_load"></div>
 <h3>Remove Non-instructional Load</h3>
+<i>Hover over instructor ID for instructor name</i>
 <table class="table">
         <thead class="thead-dark">
         <tr>
@@ -52,9 +53,11 @@
         <tbody>
         {% for each in non_ins_load %}
             <tr>
-                {% for item in each %}
-                    <td>{{ item }}</td>
-                {% endfor %}
+                <td title="{{ each[5] }} {{ each[6] }}">{{ each[0] }}</td>
+                <td>{{ each[1] }}</td>
+                <td>{{ each[2] }}</td>
+                <td>{{ each[3] }}</td>
+                <td>{{ each[4] }}</td>
             <td><a class="btn btn-danger" onclick="reloadPage('add-non-instructional', '/remove-non-ins/{{ each[0] }}/{{ each[1] }}/{{ each[3] }}/{{ each[4] }}')">Remove</a></td>
             </tr>
         {% endfor %}
