@@ -1,6 +1,9 @@
 <select class="form-control" id="teach" name="teach" size="10">
     {% for each in teaches %}
-        <option value='{"id":"{{ each[0] }}","course_id":"{{ each[1] }}","section":"{{ each[2] }}","semester":"{{ each[3] }}", "year":"{{ each[4] }}"}'>{{ each[0] }}
+        <option value='{"id":"{{ each[0] }}","course_id":"{{ each[1] }}","section":"{{ each[2] }}","semester":"{{ each[3] }}", "year":"{{ each[4] }}"}'
+        {% if each[5] == None %}
+        style="background-color: lightcoral"
+        {% endif %}>{{ each[6] }} {{ each[7] }} -- {{ each[0] }}
             -- {{ each[1] }} -- {{ each[2] }} -- {{ each[3] }} -- {{ each[4] }} -- {{ each[5] }}</option>
     {% endfor %}
 </select>

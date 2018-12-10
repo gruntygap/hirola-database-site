@@ -126,8 +126,11 @@ def get_instructor_time_restrictions_table():
 	return get_query("select first_name, last_name, id, mod_slot from instructor_time_restrictions natural join instructor;")
 
 
-def get_teaches_table():
-	return get_query("select * from teaches;")
+def get_teaches_table(string=None):
+	execute = "select * from teaches;"
+	if string is not None:
+		execute = string
+	return get_query(execute)
 
 
 def get_section_table(custom=None):

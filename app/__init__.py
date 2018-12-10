@@ -27,7 +27,7 @@ def function_page():
 	sections = database.get_section_table()
 	sections_without = database.get_section_table("select * from section natural left join teaches where id is NULL;")
 	non_ins_load = database.get_non_instructional_load_table()
-	teaches = database.get_teaches_table()
+	teaches = database.get_teaches_table("select id, course_id, sec_id, semester, year, mod_slot, first_name, last_name from teaches natural join instructor;")
 	return render_template('input_functions.html', **locals())
 
 
@@ -147,7 +147,7 @@ def execute_phase():
 
 @app.route("/get_mod_selection", methods=['GET'])
 def get_assign_mod():
-	teaches = database.get_teaches_table()
+	teaches = database.get_teaches_table("select id, course_id, sec_id, semester, year, mod_slot, first_name, last_name from teaches natural join instructor;")
 	return render_template("assign-mod-select.html", **locals())
 
 
@@ -184,7 +184,7 @@ def get_assign_course_instructor():
 @app.route("/get-assign-mod", methods=['GET'])
 def get_mod_component():
 	mods = database.get_mods()
-	teaches = database.get_teaches_table()
+	teaches = database.get_teaches_table("select id, course_id, sec_id, semester, year, mod_slot, first_name, last_name from teaches natural join instructor;")
 	return render_template("assign-mod.html", **locals())
 
 
