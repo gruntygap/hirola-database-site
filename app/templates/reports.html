@@ -275,25 +275,39 @@
     {% endif %}
 
     <button class="btn btn-primary" id="start">These reports are acceptable</button>
+    <button class="btn btn-danger" id="spice" style="display: none">Spice this up</button>
     <img id="loader2" src="{{ url_for('static', filename='hirola-ushanka.png') }}" style="display: none;"/>
     <script>
         $(document).ready(function (e) {
             var audio = new Audio('https://upload.wikimedia.org/wikipedia/commons/d/db/Gimn_Sovetskogo_Soyuza_%281977_Vocal%29.oga');
+            var spicy = new Audio("https://drive.google.com/uc?export=download&id=1sa6Gt7n2-I57azSKlmj2oYC0fC96mlI4");
+            var layers = [];
             $('#start').on('click', function () {
                 if ($(this).html() === 'These reports are acceptable') {
                     $("#loader2").css("display", "block");
                     $(this).html('Stop this Nonsense');
                     $("body").css("transition", "background-color 10s");
                     $("body").css("background-color", "red");
+                    $("#spice").css("display", "initial");
                     audio.currentTime = 1.1;
                     audio.play();
                 } else {
                     $(this).html('These reports are acceptable');
                     $("body").css("transition", "background-color 1s");
                     $("#loader2").css("display", "none");
+                    $("#spice").css("display", "none");
                     audio.pause();
+                    for(var i = 0; i < layers.length; i++) {
+                        layers[i].pause();
+                    }
+                    layers = [];
                     $("body").css("background-color", "white");
                 }
+            });
+            $('#spice').on('click', function () {
+                audio.pause();
+                layers.push(new Audio("https://drive.google.com/uc?export=download&id=1sa6Gt7n2-I57azSKlmj2oYC0fC96mlI4"));
+                layers[layers.length - 1].play();
             });
         });
     </script>
