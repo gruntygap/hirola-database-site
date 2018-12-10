@@ -1,6 +1,5 @@
-drop trigger if exists check_cluster_insert;
-drop trigger if exists check_cluster_update;
-drop trigger if exists course_time_insert;
+drop trigger if exists check_multiple_instructor_time_insert;
+drop trigger if exists check_course_time_insert;
 drop trigger if exists check_course_time_update;
 drop trigger if exists check_mod_interim_insert;
 drop trigger if exists check_mod_interim_update;
