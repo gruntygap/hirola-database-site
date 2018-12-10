@@ -177,7 +177,7 @@ def get_time_restrictions():
 def get_assign_course_instructor():
 	sections_without = database.get_section_table("select * from section natural left join teaches where id is NULL;")
 	instructors = database.get_instructor_table('part')
-	teaches = database.get_teaches_table()
+	teaches = database.get_teaches_table("select id, course_id, sec_id, semester, year, mod_slot, first_name, last_name from teaches natural join instructor;")
 	return render_template("assign-course-instructor.html", **locals())
 
 
